@@ -35,7 +35,8 @@ disqusShortname = "https-www-raffaelespataro-it"
     author = "Raffaele Spataro"
     description = "This is my personal blog. It contains posts about coding, stuff happening in my life and a portfolio of projects"
     menu_item_separator = " - "
-
+    avatar = "avataaars.png"
+    
     [[params.social]]
         icon = "linkedin"
         name = "linkedin"
