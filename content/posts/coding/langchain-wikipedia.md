@@ -83,7 +83,7 @@ Using the `LLMChain` library, we can create a chain that prompts the user to ent
 
 This chain prompts the user for input and generates a URL by using OpenAI to search for the specified topic on Wikipedia. It then stores the URL in the `url_chain` variable.
 
-## Creating a Trafilatura Chain
+## Creating a custom Chain for web scraping
 
 We will use Trafilatura to extract the text from the Wikipedia page corresponding to the URL generated in the previous step. The `TrafilaturaChain` defined in the following code block uses the `trafilatura` library to extract and clean the text, then splits the text into paragraphs of maximum length 500 characters.
 
