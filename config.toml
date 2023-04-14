@@ -1,15 +1,23 @@
 baseURL = "https://www.raffaelespataro.it/"
+
 languageCode = 'en-us'
+
 title = 'Raffaele Spataro'
+
 theme = "m10c"
 
 author = "Raffaeele Spataro"
+
 description = "This the personal blog of Raffaele Spataro. It contains posts about coding, stuff happening in his life and a portfolio of his projects."
 
 publishDir = "docs"
+
 contentDir = "content"
+
 defaultContentLanguage = "en"
+
 enableEmoji = "true"
+
 enableGitInfo = "true"
 
 disqusShortname = "https-www-raffaelespataro-it"
@@ -45,7 +53,3 @@ disqusShortname = "https-www-raffaelespataro-it"
         icon = "github"
         name = "github"
         url = "https://github.com/raphael2692"
-    [[params.social]]
-        icon = "medium"
-        name = "medium"
-        url = "https://medium.com/@raffaele.spataro"
