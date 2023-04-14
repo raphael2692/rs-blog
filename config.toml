@@ -1,0 +1,50 @@
+baseURL = 'http://example.org/'
+languageCode = 'en-us'
+title = 'Raffaele Spataro'
+theme = "m10c"
+
+author = "Raffaeele Spataro"
+description = "This the personal blog of Raffaele Spataro. It contains posts about coding, stuff happening in his life and a portfolio of his projects."
+
+publishDir = "docs"
+contentDir = "content"
+defaultContentLanguage = "en"
+enableEmoji = "true"
+enableGitInfo = "true"
+
+disqusShortname = "https-www-raffaelespataro-it"
+
+[menu]
+    [[menu.main]]
+        identifier = "home"
+        name = "Home"
+        url = "/"
+        weight = 1
+    [[menu.main]]
+        identifier = "tags"
+        name = "Tags"
+        url = "/tags/"
+        weight = 2
+    [[menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about/"
+        weight = 3
+
+[params]
+    author = "Raffaele Spataro"
+    description = "This is my personal blog. It contains posts about coding, stuff happening in my life and a portfolio of projects"
+    menu_item_separator = " - "
+
+    [[params.social]]
+        icon = "linkedin"
+        name = "linkedin"
+        url = "https://www.linkedin.com/in/raffaele-spataro-44194b57/"
+    [[params.social]]
+        icon = "github"
+        name = "github"
+        url = "https://github.com/raphael2692"
+    [[params.social]]
+        icon = "medium"
+        name = "medium"
+        url = "https://medium.com/@raffaele.spataro"
