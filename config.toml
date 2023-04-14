@@ -1,4 +1,4 @@
-baseURL = 'http://example.org/'
+baseURL = "https://www.raffaelespataro.it/"
 languageCode = 'en-us'
 title = 'Raffaele Spataro'
 theme = "m10c"
@@ -36,7 +36,7 @@ disqusShortname = "https-www-raffaelespataro-it"
     description = "This is my personal blog. It contains posts about coding, stuff happening in my life and a portfolio of projects"
     menu_item_separator = " - "
     avatar = "avataaars.png"
-    
+
     [[params.social]]
         icon = "linkedin"
         name = "linkedin"
