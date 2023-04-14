@@ -12,12 +12,11 @@ In this tutorial, we will be building a Python program that searches for a speci
 
 ## Required Libraries
 
-We will be using the following Python libraries:
-- `os`
-- `json`
-- `re`
-- `trafilatura`
+We will be using the following external libraries:
+
 - `loguru`
+- `trafilatura`
+- `openai`
 - `langchain`
 
 Before we dive deeper, ensure that all these libraries are installed in your system. 
@@ -42,8 +41,6 @@ from langchain.chains import SimpleSequentialChain
 from langchain.chains import LLMChain
 from langchain.chains.base import Chain
 from typing import Dict, List
-# from langchain.chains import SequentialChain
-# from langchain.memory import SimpleMemory
 ```
 
 ## Authenticating OpenAI
