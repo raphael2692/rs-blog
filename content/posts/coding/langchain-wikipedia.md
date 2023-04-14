@@ -1,7 +1,7 @@
 
 
 +++ 
-title = "Creating a Wikipedia Search and Summary Program Using OpenAI, Trafilatura, and LLMChain" 
+title = "Creating a Wikipedia Search and Summary Program Using OpenAI, Trafilatura, and Langchain" 
 tags = ["coding", "python", "datascience", "ai", "llm", "langchain"] 
 date = "2023-04-14" 
 +++
