@@ -1,7 +1,7 @@
 
 
 +++ 
-title = "Creating a Wikipedia Search and Summary Program Using OpenAI, Trafilatura, and LangChain" 
+title = "Creating a Wikipedia Q&A using OpenAI, LangChain and Trafilatura" 
 tags = ["coding", "python", "datascience", "ai", "llm", "langchain"] 
 date = "2023-04-14" 
 
@@ -9,7 +9,7 @@ date = "2023-04-14"
 
 # Introduction
 
-In this tutorial, we will be building a Python program that searches for a specified topic on Wikipedia, extracts the text from the top search result, and generates a summary using OpenAI and Trafilatura. We will use the LLMChain library to connect these different functionalities.
+In this tutorial, we will be building a Python program that searches for a specified topic on Wikipedia, extracts the text from the top search result, and generates a summary using OpenAI and Trafilatura. We will use the LangChain library to connect these different functionalities.
 
 ## Required Libraries
 
@@ -63,7 +63,7 @@ Make sure to replace `openai_api_key` with your OpenAI API key.
 
 ## Creating a URL Chain
 
-Using the `LLMChain` library, we can create a chain that prompts the user to enter the topic they would like to search on Wikipedia. This chain will then use OpenAI to generate a URL to the most relevant article on Wikipedia.
+Using the `LangChain` library, we can create a chain that prompts the user to enter the topic they would like to search on Wikipedia. This chain will then use OpenAI to generate a URL to the most relevant article on Wikipedia.
 
 ```python
     # init chat object
