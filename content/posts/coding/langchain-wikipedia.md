@@ -4,6 +4,7 @@
 title = "Creating a Wikipedia Search and Summary Program Using OpenAI, Trafilatura, and Langchain" 
 tags = ["coding", "python", "datascience", "ai", "llm", "langchain"] 
 date = "2023-04-14" 
+
 +++
 
 # Introduction
@@ -172,3 +173,6 @@ The `SimpleSequentialChain` takes in the user's input, runs it through each of t
 ## Conclusion
 
 In this tutorial, we learned how to create a Python program that searches for a topic on Wikipedia, extracts the corresponding text, and generates a summary. We used OpenAI and Trafilatura to perform the text processing and LLMChain to connect the different functionalities. By following this tutorial and tweaking the variables to your liking, you can create your own customized summary generator for any topic on Wikipedia.
+
+### Resources
+- The code for this tutorial [on my GitHub](https://github.com/raphael2692/langchain-prompt-to-wikipedia)
