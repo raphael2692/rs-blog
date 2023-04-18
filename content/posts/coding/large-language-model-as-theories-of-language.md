@@ -4,6 +4,7 @@
 title = "Large language models as theories of language" 
 tags = ["thoughts", "philosophy", "ai", "llm"] 
 date = "2023-04-17" 
+draft = true
 +++
 
 In this post, as part of a (potential) series, I will be sharing my thoughts on the latest technology and scientific advancements in a non-technical manner.

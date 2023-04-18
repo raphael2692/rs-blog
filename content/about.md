@@ -4,7 +4,8 @@ I started my career as a data scientist and eventually also learned how to code 
 
 These days I'm a line manager for a software consultancy agency in Rome, where I work on all kinds of cool web and data applications with my team. 
 
-{{< figure src="kickOff2023arrow.png" title="That's me!" >}}
+![That's me!](/kickOff2023arrow.png)
+
 
 I mostly use Python for my projects, but I've also dabbled in Angular for frontend development.
 

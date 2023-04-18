@@ -22,6 +22,7 @@ enableGitInfo = "true"
 
 disqusShortname = "https-www-raffaelespataro-it"
 
+
 [menu]
     [[menu.main]]
         identifier = "home"
@@ -53,3 +54,6 @@ disqusShortname = "https-www-raffaelespataro-it"
         icon = "github"
         name = "github"
         url = "https://github.com/raphael2692"
+
+[params.style]
+    primaryColor = "#0e76a8"
