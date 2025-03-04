@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Asteroids on Raffaele Spataro</title>
+    <link>http://localhost:1313/tags/asteroids/</link>
+    <description>Recent content in Asteroids on Raffaele Spataro</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 08 Jan 2022 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/asteroids/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating Asteroids in python, part 2 of 2: Gameplay and User Input</title>
+      <link>http://localhost:1313/posts/coding/asteroids-pygame-part-two/</link>
+      <pubDate>Sat, 08 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/coding/asteroids-pygame-part-two/</guid>
+      <description>&lt;h1 id=&#34;python-tutorial-building-asteroids-game-with-pygame---part-2-gameplay-and-user-input&#34;&gt;Python Tutorial: Building Asteroids Game with Pygame - Part 2: Gameplay and User Input&lt;/h1&gt;&#xA;&lt;p&gt;Welcome back to part 2 of our Asteroids game development tutorial using Pygame! In &lt;a href=&#34;previous-post-url.md&#34;&gt;part 1&lt;/a&gt; (replace &lt;code&gt;previous-post-url.md&lt;/code&gt; with the actual link to part 1), we laid the foundation by setting up our game window and defining the &lt;code&gt;SpaceObject&lt;/code&gt; class. We created a base class capable of handling positions, rotations, and drawing shapes on the screen.&lt;/p&gt;&#xA;&lt;p&gt;In this second part, we&amp;rsquo;re going to bring our game to life. We&amp;rsquo;ll dive into the game loop, handle user input to control our spaceship, implement asteroid generation, and introduce basic collision detection to start making a playable game.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

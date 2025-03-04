@@ -1,10 +1,8 @@
-
-
 +++ 
 title = "Creating a Wikipedia Q&A using OpenAI, LangChain and Trafilatura" 
-tags = ["coding", "python", "datascience", "ai", "llm", "langchain"] 
-date = "2023-04-14" 
-
+tags = ["coding", "python", "ai", "tutorial", "langchain"] 
+date = "2023-04-01" 
+draft = false
 +++
 
 # Introduction
@@ -23,7 +21,6 @@ We will be using the following external libraries:
 Before we dive deeper, ensure that all these libraries are installed in your system. 
 
 ```python
-# standard
 import os
 import json
 import re
@@ -175,4 +172,5 @@ The `SimpleSequentialChain` takes in the user's input, runs it through each of t
 In this tutorial, we learned how to create a Python program that searches for a topic on Wikipedia, extracts the corresponding text, and generates a summary. We used OpenAI and Trafilatura to perform the text processing and LLMChain to connect the different functionalities. By following this tutorial and tweaking the variables to your liking, you can create your own customized summary generator for any topic on Wikipedia.
 
 ### Resources
+
 - The code for this tutorial [on my GitHub](https://github.com/raphael2692/langchain-prompt-to-wikipedia)

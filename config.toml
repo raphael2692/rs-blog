@@ -8,7 +8,7 @@ theme = "m10c"
 
 author = "Raffaeele Spataro"
 
-description = "This the personal blog of Raffaele Spataro. It contains posts about coding, stuff happening in his life and a portfolio of his projects."
+description = "Welcome to my blog! I share insights on coding, my projects, and occasional snippets of my life. Enjoy exploring!"
 
 publishDir = "docs"
 
@@ -42,7 +42,7 @@ disqusShortname = "https-www-raffaelespataro-it"
 
 [params]
     author = "Raffaele Spataro"
-    description = "This is my personal blog. It contains posts about coding, stuff happening in my life and a portfolio of projects"
+    description = "Welcome to my blog! I share insights on coding, my projects, and occasional snippets of my life. Enjoy exploring!"
     menu_item_separator = " - "
     avatar = "avataaars.png"
 

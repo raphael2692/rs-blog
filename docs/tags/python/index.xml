@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>python on Raffaele Spataro</title>
-    <link>https://www.raffaelespataro.it/tags/python/</link>
-    <description>Recent content in python on Raffaele Spataro</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <title>Python on Raffaele Spataro</title>
+    <link>http://localhost:1313/tags/python/</link>
+    <description>Recent content in Python on Raffaele Spataro</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 14 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://www.raffaelespataro.it/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 01 Jun 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Feed code efficiently to AI</title>
+      <link>http://localhost:1313/posts/coding/feed-code-to-ai-tutorial/</link>
+      <pubDate>Sat, 01 Jun 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/coding/feed-code-to-ai-tutorial/</guid>
+      <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;p&gt;In this tutorial, we will guide you through creating a Python script that converts project directories into a structured format suitable for feeding code to AI/LLM (Large Language Models). This script will help you prepare your codebase by generating a structured file that includes the project structure and the contents of the files, making it easier for the AI/LLM to process and understand the code.&lt;/p&gt;&#xA;&lt;h2 id=&#34;project-structure&#34;&gt;Project Structure&lt;/h2&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s the structure of the project:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Natural query against tabular data with LangChain and Pandas</title>
+      <link>http://localhost:1313/posts/coding/langchain-pandas-agent/</link>
+      <pubDate>Sun, 02 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/coding/langchain-pandas-agent/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;In this tutorial, we will explore how LangChain can be used to retrieve information from a dataframe for a specific query using the &lt;code&gt;create_pandas_dataframe_agent&lt;/code&gt; function.&lt;/p&gt;&#xA;&lt;p&gt;This script utilizes pandas and Langchain, using the OpenAI API, to create a dataframe agent that can answer natural language questions based off of the data provided by a CSV file.&lt;/p&gt;&#xA;&lt;h2 id=&#34;step-1-import-libraries&#34;&gt;Step 1: Import Libraries&lt;/h2&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s begin by importing the necessary libraries.&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; pandas &lt;span style=&#34;color:#66d9ef&#34;&gt;as&lt;/span&gt; pd&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; langchain.agents &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; create_pandas_dataframe_agent&#xA;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;from&lt;/span&gt; langchain.llms &lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; OpenAI&#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;step-2-create-a-dataframe&#34;&gt;Step 2: Create a DataFrame&lt;/h2&gt;&#xA;&lt;p&gt;We will be reading in data from a CSV file to create a DataFrame. In this case we will be using a dataset containing information about the python packages listend in pypi as of 2019.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Creating a Wikipedia Q&amp;A using OpenAI, LangChain and Trafilatura</title>
-      <link>https://www.raffaelespataro.it/posts/coding/langchain-wikipedia/</link>
-      <pubDate>Fri, 14 Apr 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://www.raffaelespataro.it/posts/coding/langchain-wikipedia/</guid>
-      <description>Introduction In this tutorial, we will be building a Python program that searches for a specified topic on Wikipedia, extracts the text from the top search result, and generates a summary using OpenAI and Trafilatura. We will use the LangChain library to connect these different functionalities.
-Required Libraries We will be using the following external libraries:
-loguru trafilatura openai langchain Before we dive deeper, ensure that all these libraries are installed in your system.</description>
+      <link>http://localhost:1313/posts/coding/langchain-wikipedia/</link>
+      <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/coding/langchain-wikipedia/</guid>
+      <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;p&gt;In this tutorial, we will be building a Python program that searches for a specified topic on Wikipedia, extracts the text from the top search result, and generates a summary using OpenAI and Trafilatura. We will use the LangChain library to connect these different functionalities.&lt;/p&gt;&#xA;&lt;h2 id=&#34;required-libraries&#34;&gt;Required Libraries&lt;/h2&gt;&#xA;&lt;p&gt;We will be using the following external libraries:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;loguru&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;trafilatura&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;openai&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;langchain&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Before we dive deeper, ensure that all these libraries are installed in your system.&lt;/p&gt;</description>
     </item>
-    
+    <item>
+      <title>Building a Simple Ticket System with Django and Django REST Framework</title>
+      <link>http://localhost:1313/posts/coding/simple-ticket-fullstack-backend/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/coding/simple-ticket-fullstack-backend/</guid>
+      <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;p&gt;In this tutorial, we will walk you through creating a simple ticket system using Django and Django REST Framework (DRF). This system will allow users to create, view, and manage tickets. We&amp;rsquo;ll cover setting up the Django project, creating models, serializers, views, and URLs, as well as implementing user authentication using JSON Web Tokens (JWT).&lt;/p&gt;&#xA;&lt;h2 id=&#34;project-structure&#34;&gt;Project Structure&lt;/h2&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s the structure of the project:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;simpleticket/&#xD;&#xA;│&#xD;&#xA;├── manage.py&#xD;&#xA;├── simpleticket/&#xD;&#xA;│   ├── __init__.py&#xD;&#xA;│   ├── asgi.py&#xD;&#xA;│   ├── settings.py&#xD;&#xA;│   ├── urls.py&#xD;&#xA;│   ├── wsgi.py&#xD;&#xA;│   ├── simpleticketapp/&#xD;&#xA;│   │   ├── __init__.py&#xD;&#xA;│   │   ├── admin.py&#xD;&#xA;│   │   ├── apps.py&#xD;&#xA;│   │   ├── migrations/&#xD;&#xA;│   │   │   ├── 0001_initial.py&#xD;&#xA;│   │   │   ├── __init__.py&#xD;&#xA;│   │   ├── models.py&#xD;&#xA;│   │   ├── serializers.py&#xD;&#xA;│   │   ├── tests.py&#xD;&#xA;│   │   ├── views.py&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;step-1-setting-up-the-django-project&#34;&gt;Step 1: Setting Up the Django Project&lt;/h2&gt;&#xA;&lt;p&gt;First, let&amp;rsquo;s set up the basic structure of the Django project. We&amp;rsquo;ll initialize the project and create the main application.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Re-create Asteroids in PyGame</title>
+      <link>http://localhost:1313/posts/coding/asteroids-pygame-tutorial/</link>
+      <pubDate>Sat, 01 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/coding/asteroids-pygame-tutorial/</guid>
+      <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;p&gt;In this tutorial, we will guide you through creating a classic Asteroids game using Python and the Pygame library. We&amp;rsquo;ll cover setting up the game, handling user input, managing game objects, and implementing game logic.&lt;/p&gt;&#xA;&lt;h3 id=&#34;project-structure&#34;&gt;Project Structure&lt;/h3&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s the structure of the project:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;asteroids-pygame/&#xD;&#xA;│&#xD;&#xA;├── main.py&#xD;&#xA;├── README.md&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;step-1-setting-up-the-game&#34;&gt;Step 1: Setting Up the Game&lt;/h3&gt;&#xA;&lt;p&gt;First, let&amp;rsquo;s set up the basic structure of the game. We&amp;rsquo;ll initialize Pygame, create the game window, and set up the main game loop.&lt;/p&gt;</description>
+    </item>
   </channel>
 </rss>

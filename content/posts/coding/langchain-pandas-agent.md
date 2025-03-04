@@ -1,11 +1,9 @@
-
----
-title : "Natural query against tabular data with LangChain and Pandas" 
-tags : ["coding", "python", "langchain", "pandas"] 
-date : "2023-04-14" 
-draft : true
----
-
++++
+title = "Natural query against tabular data with LangChain and Pandas" 
+tags = ["coding", "python", "ai", "langchain", "pandas"] 
+date = "2023-04-02" 
+draft = false
++++
 
 ## Introduction
 

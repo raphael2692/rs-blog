@@ -1,36 +1,46 @@
 <!doctype html>
 <html lang="en-us">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Creating a Wikipedia Q&amp;A using OpenAI, LangChain and Trafilatura // Raffaele Spataro</title>
     <link rel="shortcut icon" href="/favicon.ico" />
     <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.111.3">
+    <meta name="generator" content="Hugo 0.145.0">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="Raffaele Spataro" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.4bd423cc61bcc634c85a58e54002cb85f188c0da6249a8e787063059e3e80a71.css" />
+    <link rel="stylesheet" href="/css/main.min.6572706294358157e91e58d0b754256a86f60701dfb73d05088a26c6493a83bb.css" />
+    
 
     
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Creating a Wikipedia Q&amp;A using OpenAI, LangChain and Trafilatura"/>
-<meta name="twitter:description" content="Introduction In this tutorial, we will be building a Python program that searches for a specified topic on Wikipedia, extracts the text from the top search result, and generates a summary using OpenAI and Trafilatura. We will use the LangChain library to connect these different functionalities.
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Creating a Wikipedia Q&A using OpenAI, LangChain and Trafilatura">
+  <meta name="twitter:description" content="Introduction In this tutorial, we will be building a Python program that searches for a specified topic on Wikipedia, extracts the text from the top search result, and generates a summary using OpenAI and Trafilatura. We will use the LangChain library to connect these different functionalities.
 Required Libraries We will be using the following external libraries:
-loguru trafilatura openai langchain Before we dive deeper, ensure that all these libraries are installed in your system."/>
+loguru trafilatura openai langchain Before we dive deeper, ensure that all these libraries are installed in your system.">
 
-    <meta property="og:title" content="Creating a Wikipedia Q&amp;A using OpenAI, LangChain and Trafilatura" />
-<meta property="og:description" content="Introduction In this tutorial, we will be building a Python program that searches for a specified topic on Wikipedia, extracts the text from the top search result, and generates a summary using OpenAI and Trafilatura. We will use the LangChain library to connect these different functionalities.
+    <meta property="og:url" content="http://localhost:1313/posts/coding/langchain-wikipedia/">
+  <meta property="og:site_name" content="Raffaele Spataro">
+  <meta property="og:title" content="Creating a Wikipedia Q&A using OpenAI, LangChain and Trafilatura">
+  <meta property="og:description" content="Introduction In this tutorial, we will be building a Python program that searches for a specified topic on Wikipedia, extracts the text from the top search result, and generates a summary using OpenAI and Trafilatura. We will use the LangChain library to connect these different functionalities.
 Required Libraries We will be using the following external libraries:
-loguru trafilatura openai langchain Before we dive deeper, ensure that all these libraries are installed in your system." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.raffaelespataro.it/posts/coding/langchain-wikipedia/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-04-14T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-04-17T15:23:19+02:00" />
+loguru trafilatura openai langchain Before we dive deeper, ensure that all these libraries are installed in your system.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-04-01T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-04-17T15:23:19+02:00">
+    <meta property="article:tag" content="Coding">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Ai">
+    <meta property="article:tag" content="Tutorial">
+    <meta property="article:tag" content="Langchain">
 
 
   </head>
   <body>
     <header class="app-header">
-      <a href="https://www.raffaelespataro.it/"><img class="app-header-avatar" src="/avataaars.png" alt="Raffaele Spataro" /></a>
+      <a href="/"><img class="app-header-avatar" src="/avataaars.png" alt="Raffaele Spataro" /></a>
       <span class="app-header-title">Raffaele Spataro</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -41,21 +51,15 @@ loguru trafilatura openai langchain Before we dive deeper, ensure that all these
           
           <a class="app-header-menu-item" href="/about/">About</a>
       </nav>
-      <p>This is my personal blog. It contains posts about coding, stuff happening in my life and a portfolio of projects</p>
+      <p>Welcome to my blog! I share insights on coding, my projects, and occasional snippets of my life. Enjoy exploring!</p>
       <div class="app-header-social">
         
           <a href="https://www.linkedin.com/in/raffaele-spataro-44194b57/" target="_blank" rel="noreferrer noopener me">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
-  <title>linkedin</title>
-  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
-</svg>
+            <svg class="icon icon-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>linkedin</title><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
           </a>
         
           <a href="https://github.com/raphael2692" target="_blank" rel="noreferrer noopener me">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
-  <title>github</title>
-  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-</svg>
+            <svg class="icon icon-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>github</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
           </a>
         
       </div>
@@ -67,30 +71,20 @@ loguru trafilatura openai langchain Before we dive deeper, ensure that all these
       <h1 class ="post-title">Creating a Wikipedia Q&amp;A using OpenAI, LangChain and Trafilatura</h1>
       <div class="post-meta">
         <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
-  <title>calendar</title>
-  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
-</svg>
-          Apr 14, 2023
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Apr 1, 2023
         </div>
         <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
-  <title>clock</title>
-  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
-</svg>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
           4 min read
         </div>
         <div>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tag">
-  <title>tag</title>
-  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line>
-</svg>
-              <a class="tag" href="https://www.raffaelespataro.it/tags/coding/">coding</a>
-              <a class="tag" href="https://www.raffaelespataro.it/tags/python/">python</a>
-              <a class="tag" href="https://www.raffaelespataro.it/tags/datascience/">datascience</a>
-              <a class="tag" href="https://www.raffaelespataro.it/tags/ai/">ai</a>
-              <a class="tag" href="https://www.raffaelespataro.it/tags/llm/">llm</a>
-              <a class="tag" href="https://www.raffaelespataro.it/tags/langchain/">langchain</a>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/coding/">Coding</a>
+              <a class="tag" href="/tags/python/">Python</a>
+              <a class="tag" href="/tags/ai/">Ai</a>
+              <a class="tag" href="/tags/tutorial/">Tutorial</a>
+              <a class="tag" href="/tags/langchain/">Langchain</a>
         </div>
       </div>
     </header>
@@ -106,8 +100,7 @@ loguru trafilatura openai langchain Before we dive deeper, ensure that all these
 <li><code>langchain</code></li>
 </ul>
 <p>Before we dive deeper, ensure that all these libraries are installed in your system.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># standard</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> os
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> os
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> json
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> re
 </span></span><span style="display:flex;"><span>
@@ -231,7 +224,7 @@ loguru trafilatura openai langchain Before we dive deeper, ensure that all these
     </div>
     <div class="post-footer">
       <div id="disqus_thread"></div>
-<script type="application/javascript">
+<script>
     window.disqus_config = function () {
     
     

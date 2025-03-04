@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Game-Develompment on Raffaele Spataro</title>
+    <link>http://localhost:1313/tags/game-develompment/</link>
+    <description>Recent content in Game-Develompment on Raffaele Spataro</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 15 Apr 2023 00:40:45 +0200</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/game-develompment/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Creating Asteroids in python, part 1 of 2</title>
+      <link>http://localhost:1313/posts/coding/asteroids-pygame-part-one/</link>
+      <pubDate>Fri, 14 Apr 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/coding/asteroids-pygame-part-one/</guid>
+      <description>&lt;h1 id=&#34;python-tutorial-building-asteroids-game-with-pygame&#34;&gt;Python Tutorial: Building Asteroids Game with Pygame&lt;/h1&gt;&#xA;&lt;p&gt;In this tutorial, we will be building the classic arcade game Asteroids using pyGame, a popular python library for creating 2D games. The goal of the game is to navigate through an asteroid field while avoiding collisions with the asteroids and enemy spacecraft. The game will include the following features:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A player spacecraft that can rotate, thrust, and fire weapons&lt;/li&gt;&#xA;&lt;li&gt;Asteroids that break upon collision&lt;/li&gt;&#xA;&lt;li&gt;Scoring system based on the number of asteroids destroyed&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;setting-up-the-game-window&#34;&gt;Setting Up the Game Window&lt;/h2&gt;&#xA;&lt;p&gt;First, we need to set up the game window. We will import the Pygame library and create a window with a specified size.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

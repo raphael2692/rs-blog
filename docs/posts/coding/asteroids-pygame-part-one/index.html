@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Creating Asteroids in python, part 1 of 2 // Raffaele Spataro</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.145.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Raffaele Spataro" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.6572706294358157e91e58d0b754256a86f60701dfb73d05088a26c6493a83bb.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Creating Asteroids in python, part 1 of 2">
+  <meta name="twitter:description" content="Python Tutorial: Building Asteroids Game with Pygame In this tutorial, we will be building the classic arcade game Asteroids using pyGame, a popular python library for creating 2D games. The goal of the game is to navigate through an asteroid field while avoiding collisions with the asteroids and enemy spacecraft. The game will include the following features:
+A player spacecraft that can rotate, thrust, and fire weapons Asteroids that break upon collision Scoring system based on the number of asteroids destroyed Setting Up the Game Window First, we need to set up the game window. We will import the Pygame library and create a window with a specified size.">
+
+    <meta property="og:url" content="http://localhost:1313/posts/coding/asteroids-pygame-part-one/">
+  <meta property="og:site_name" content="Raffaele Spataro">
+  <meta property="og:title" content="Creating Asteroids in python, part 1 of 2">
+  <meta property="og:description" content="Python Tutorial: Building Asteroids Game with Pygame In this tutorial, we will be building the classic arcade game Asteroids using pyGame, a popular python library for creating 2D games. The goal of the game is to navigate through an asteroid field while avoiding collisions with the asteroids and enemy spacecraft. The game will include the following features:
+A player spacecraft that can rotate, thrust, and fire weapons Asteroids that break upon collision Scoring system based on the number of asteroids destroyed Setting Up the Game Window First, we need to set up the game window. We will import the Pygame library and create a window with a specified size.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-04-14T00:00:00+00:00">
+    <meta property="article:modified_time" content="2023-04-15T00:40:45+02:00">
+    <meta property="article:tag" content="Coding">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Game-Develompment">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avataaars.png" alt="Raffaele Spataro" /></a>
+      <span class="app-header-title">Raffaele Spataro</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/about/">About</a>
+      </nav>
+      <p>Welcome to my blog! I share insights on coding, my projects, and occasional snippets of my life. Enjoy exploring!</p>
+      <div class="app-header-social">
+        
+          <a href="https://www.linkedin.com/in/raffaele-spataro-44194b57/" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>linkedin</title><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        
+          <a href="https://github.com/raphael2692" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>github</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Creating Asteroids in python, part 1 of 2</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Apr 14, 2023
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          6 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/coding/">Coding</a>
+              <a class="tag" href="/tags/python/">Python</a>
+              <a class="tag" href="/tags/game-develompment/">Game-Develompment</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="python-tutorial-building-asteroids-game-with-pygame">Python Tutorial: Building Asteroids Game with Pygame</h1>
+<p>In this tutorial, we will be building the classic arcade game Asteroids using pyGame, a popular python library for creating 2D games. The goal of the game is to navigate through an asteroid field while avoiding collisions with the asteroids and enemy spacecraft. The game will include the following features:</p>
+<ul>
+<li>A player spacecraft that can rotate, thrust, and fire weapons</li>
+<li>Asteroids that break upon collision</li>
+<li>Scoring system based on the number of asteroids destroyed</li>
+</ul>
+<h2 id="setting-up-the-game-window">Setting Up the Game Window</h2>
+<p>First, we need to set up the game window. We will import the Pygame library and create a window with a specified size.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pygame
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Initialize Pygame</span>
+</span></span><span style="display:flex;"><span>pygame<span style="color:#f92672">.</span>init()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Set the window size</span>
+</span></span><span style="display:flex;"><span>screen_x <span style="color:#f92672">=</span> <span style="color:#ae81ff">800</span>
+</span></span><span style="display:flex;"><span>screen_y <span style="color:#f92672">=</span> <span style="color:#ae81ff">600</span>
+</span></span><span style="display:flex;"><span>screen <span style="color:#f92672">=</span> pygame<span style="color:#f92672">.</span>display<span style="color:#f92672">.</span>set_mode((screen_x, screen_y))
+</span></span></code></pre></div><h2 id="defining-space-objects">Defining Space Objects</h2>
+<p>Next, we will define the SpaceObject class, which will be the base class for all game objects. This class will define the object&rsquo;s position, velocity, size, angle, color, and label. We will also define methods for rotating, thrusting, updating the object&rsquo;s position, and drawing the object on the screen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> random
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> loguru <span style="color:#f92672">import</span> logger
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> math
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SpaceObject</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, x, y, dx, dy, size, angle, color, mx, my, label<span style="color:#f92672">=</span><span style="color:#66d9ef">None</span>):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x <span style="color:#f92672">=</span> x <span style="color:#75715e"># initial position x</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> y
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dx <span style="color:#f92672">=</span> dx <span style="color:#75715e"># velocity x</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dy <span style="color:#f92672">=</span> dy <span style="color:#75715e"># velocity y</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>size <span style="color:#f92672">=</span> size <span style="color:#75715e"># [0,0]</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>angle <span style="color:#f92672">=</span> angle <span style="color:#75715e"># initial angle</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>color <span style="color:#f92672">=</span> color <span style="color:#75715e"># (255,255,255)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>mx <span style="color:#f92672">=</span> mx <span style="color:#75715e"># array x coords</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>my <span style="color:#f92672">=</span> my <span style="color:#75715e"># array y coords</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sx <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(len(self<span style="color:#f92672">.</span>mx))
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>sy <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>zeros(len(self<span style="color:#f92672">.</span>my))
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>collided <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>label <span style="color:#f92672">=</span> label
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rotate_left</span>(self, dt, intensity):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>angle <span style="color:#f92672">-=</span> intensity <span style="color:#f92672">*</span> dt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">rotate_right</span>(self, dt, intensity):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>angle <span style="color:#f92672">+=</span> intensity <span style="color:#f92672">*</span> dt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">thrust_up</span>(self, dt, intensity):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dx <span style="color:#f92672">+=</span> np<span style="color:#f92672">.</span>sin(self<span style="color:#f92672">.</span>angle) <span style="color:#f92672">*</span> intensity <span style="color:#f92672">*</span> dt <span style="color:#75715e"># acceleration changes velocity (with respect to dt)</span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>dy <span style="color:#f92672">+=</span> <span style="color:#f92672">-</span>np<span style="color:#f92672">.</span>cos(self<span style="color:#f92672">.</span>angle) <span style="color:#f92672">*</span> intensity <span style="color:#f92672">*</span> dt <span style="color:#75715e"># -cos() because screen is flipped</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_rotation</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(self<span style="color:#f92672">.</span>mx)):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>sx[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>mx[i] <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>cos(self<span style="color:#f92672">.</span>angle) <span style="color:#f92672">-</span> self<span style="color:#f92672">.</span>my[i] <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sin(self<span style="color:#f92672">.</span>angle)
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>sy[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>mx[i] <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>sin(self<span style="color:#f92672">.</span>angle) <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>my[i] <span style="color:#f92672">*</span> np<span style="color:#f92672">.</span>cos(self<span style="color:#f92672">.</span>angle)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_translation</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(self<span style="color:#f92672">.</span>sx)):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>sx[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>sx[i] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>x
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>sy[i] <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>sy[i] <span style="color:#f92672">+</span> self<span style="color:#f92672">.</span>y
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_position</span>(self, dt):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>dx <span style="color:#f92672">*</span> dt
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>y <span style="color:#f92672">+=</span> self<span style="color:#f92672">.</span>dy <span style="color:#f92672">*</span> dt
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw</span>(self, screen, screen_x, screen_y):
+</span></span><span style="display:flex;"><span>        pygame<span style="color:#f92672">.</span>draw<span style="color:#f92672">.</span>polygon(screen, self<span style="color:#f92672">.</span>color, self<span style="color:#f92672">.</span>poly_points, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_and_render</span>(self, dt, screen, screen_x, screen_y):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>update_rotation()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>update_translation()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>update_position(dt)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>draw(screen, screen_x, screen_y)
+</span></span></code></pre></div><h2 id="wrapping-object-coordinates">Wrapping Object Coordinates</h2>
+<p>To ensure that game objects wrap around the screen, we will define a <code>wrap_coordinates</code> method that checks the object&rsquo;s position and wraps it around to the opposite side of the screen if necessary.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">wrap_coordinates</span>(self, screen_x, screen_y):
+</span></span><span style="display:flex;"><span>        ox <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>x  <span style="color:#75715e"># if no conditions met return input value</span>
+</span></span><span style="display:flex;"><span>        oy <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>y
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>x <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            ox <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>x <span style="color:#f92672">+</span> screen_x
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> ox, oy
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>x <span style="color:#f92672">&gt;=</span> screen_x:
+</span></span><span style="display:flex;"><span>            ox <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>x <span style="color:#f92672">-</span> screen_x
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> ox, oy
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>y <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0</span>:
+</span></span><span style="display:flex;"><span>            oy <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>y <span style="color:#f92672">+</span> screen_y
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> self<span style="color:#f92672">.</span>y <span style="color:#f92672">&gt;=</span> screen_y:
+</span></span><span style="display:flex;"><span>            oy <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>y <span style="color:#f92672">-</span> screen_y
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> ox, oy
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> ox, oy
+</span></span></code></pre></div><h2 id="drawing-objects-on-the-screen">Drawing Objects on the Screen</h2>
+<p>To draw objects on the screen, we will define a <code>draw</code> method that uses Pygame&rsquo;s <code>draw.polygon</code> method to draw the object&rsquo;s shape on the screen. We will also define a <code>bounding_box</code> method that calculates the object&rsquo;s bounding box, which will be used for collision detection.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">bounding_box</span>(points):
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># adapted from:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># https://stackoverflow.com/questions/46335488/how-to-efficiently-find-the-bounding-box-of-a-collection-of-points</span>
+</span></span><span style="display:flex;"><span>    x, y <span style="color:#f92672">=</span> zip(<span style="color:#f92672">*</span>points)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> [(min(x), min(y)),\
+</span></span><span style="display:flex;"><span>             (max(x), min(y)),\
+</span></span><span style="display:flex;"><span>             (max(x), max(y)),\
+</span></span><span style="display:flex;"><span>             (min(x), max(y))]  <span style="color:#75715e"># all points (anti-clockwise)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SpaceObject</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">draw</span>(self, screen, screen_x, screen_y):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>x, self<span style="color:#f92672">.</span>y <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>wrap_coordinates(screen_x, screen_y)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>poly_points <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range(<span style="color:#ae81ff">0</span>, len(self<span style="color:#f92672">.</span>sx)):
+</span></span><span style="display:flex;"><span>            self<span style="color:#f92672">.</span>poly_points<span style="color:#f92672">.</span>append([int(self<span style="color:#f92672">.</span>sx[i]), int(self<span style="color:#f92672">.</span>sy[i])])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bb <span style="color:#f92672">=</span> bounding_box(self<span style="color:#f92672">.</span>poly_points)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bb_width <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>hypot(self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-</span>self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>], self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-</span>self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>bb_height <span style="color:#f92672">=</span> math<span style="color:#f92672">.</span>hypot(self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">0</span>]<span style="color:#f92672">-</span>self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">0</span>], self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">1</span>][<span style="color:#ae81ff">1</span>]<span style="color:#f92672">-</span>self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">2</span>][<span style="color:#ae81ff">1</span>])
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>surface <span style="color:#f92672">=</span> pygame<span style="color:#f92672">.</span>Surface((int(self<span style="color:#f92672">.</span>bb_width), int(self<span style="color:#f92672">.</span>bb_height)))
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>hit_box <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>surface<span style="color:#f92672">.</span>get_rect(topleft<span style="color:#f92672">=</span>(self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">0</span>], self<span style="color:#f92672">.</span>bb[<span style="color:#ae81ff">0</span>][<span style="color:#ae81ff">1</span>])) <span style="color:#75715e"># remember to set top_left in the update cycle!</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        pygame<span style="color:#f92672">.</span>draw<span style="color:#f92672">.</span>polygon(screen, self<span style="color:#f92672">.</span>color, self<span style="color:#f92672">.</span>poly_points, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># pygame.draw.rect(screen, (135,0,135), self.hit_box, 1) # it&#39;s useful to render bb for debugging</span>
+</span></span></code></pre></div><h2 id="updating-and-rendering-objects">Updating and Rendering Objects</h2>
+<p>Finally, we will define an <code>update_and_render</code> method that updates the object&rsquo;s position and rotation, and then renders the object on the screen.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SpaceObject</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">update_and_render</span>(self, dt, screen, screen_x, screen_y):
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>update_rotation()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>update_translation()
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>update_position(dt)
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>draw(screen, screen_x, screen_y)
+</span></span></code></pre></div><p>With these basic SpaceObject methods defined, we can now start building the game mechanics.</p>
+<h1 id="implementing-asteroids-game-in-python-using-pygame">Implementing Asteroids Game in Python using Pygame</h1>
+<p>Asteroids is a classic arcade game that was released in 1979 by Atari. The game involves controlling a spaceship that must destroy asteroids, while avoiding collisions with them. In this tutorial, we will be implementing a Python version of the Asteroids game using Pygame, a popular game development module in Python.</p>
+<h2 id="setting-up-the-game">Setting up the Game</h2>
+<p>So far we created the main class we are gonna use. There are still a couple things to setup the game window, like the font and size.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>pygame<span style="color:#f92672">.</span>init()  <span style="color:#75715e"># init</span>
+</span></span><span style="display:flex;"><span>pygame<span style="color:#f92672">.</span>font<span style="color:#f92672">.</span>init()
+</span></span><span style="display:flex;"><span>my_font <span style="color:#f92672">=</span> pygame<span style="color:#f92672">.</span>font<span style="color:#f92672">.</span>SysFont(<span style="color:#e6db74">&#39;Segoe UI&#39;</span>, <span style="color:#ae81ff">13</span>)
+</span></span><span style="display:flex;"><span>screen_x, screen_y <span style="color:#f92672">=</span> <span style="color:#ae81ff">1200</span>, <span style="color:#ae81ff">600</span> 
+</span></span><span style="display:flex;"><span>screen <span style="color:#f92672">=</span> pygame<span style="color:#f92672">.</span>display<span style="color:#f92672">.</span>set_mode((screen_x, screen_y))  <span style="color:#75715e"># screen size</span>
+</span></span></code></pre></div><p>Next, we will set up the game loop using a while loop that will continue running until the user quits the game. We will also set up a clock object to control the frames per second (fps) of the game.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>done <span style="color:#f92672">=</span> <span style="color:#66d9ef">False</span>  <span style="color:#75715e"># flag for quitting</span>
+</span></span><span style="display:flex;"><span>clock <span style="color:#f92672">=</span> pygame<span style="color:#f92672">.</span>time<span style="color:#f92672">.</span>Clock()  <span style="color:#75715e"># class for setting fps</span>
+</span></span><span style="display:flex;"><span>fps <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># delta time init</span>
+</span></span><span style="display:flex;"><span>last_time <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
+</span></span></code></pre></div><p>To process input from the user, we will use the <code>pygame.event.get()</code> method to get a list of all the events that the Pygame module has queued up. We will then loop through the events and check if the user has pressed the &lsquo;QUIT&rsquo; button to exit the game.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> event <span style="color:#f92672">in</span> pygame<span style="color:#f92672">.</span>event<span style="color:#f92672">.</span>get():
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> event<span style="color:#f92672">.</span>type <span style="color:#f92672">==</span> pygame<span style="color:#f92672">.</span>QUIT:
+</span></span><span style="display:flex;"><span>        done <span style="color:#f92672">=</span> <span style="color:#66d9ef">True</span>
+</span></span></code></pre></div><h2 id="generating-asteroids">Generating Asteroids</h2>
+<p>In the Asteroids game, the player must destroy asteroids that are randomly generated throughout the game. We will create a function that generates a new asteroid with random attributes such as size, velocity, and position. This function will return a <code>SpaceObject</code> with these attributes.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># ectagon model (in vertices)</span>
+</span></span><span style="display:flex;"><span>ect_x <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">75</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">100</span>, <span style="color:#ae81ff">75</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>ect_y <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">25</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">50</span>, <span style="color:#ae81ff">25</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_asteroid</span>():
+</span></span><span style="display:flex;"><span>    labels <span style="color:#f92672">=</span> [<span style="color:#e6db74">&#34;Luce&#34;</span>, <span style="color:#e6db74">&#34;Gas&#34;</span>, <span style="color:#e6db74">&#34;Sigarette&#34;</span>, <span style="color:#e6db74">&#34;Preservativi rotti&#34;</span>, <span style="color:#e6db74">&#34;Lubrificante anale&#34;</span>, <span style="color:#e6db74">&#34;Cocaina&#34;</span>, \
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;Pannloni&#34;</span>, <span style="color:#e6db74">&#34;Benzina&#34;</span>, <span style="color:#e6db74">&#34;Telefono&#34;</span>, <span style="color:#e6db74">&#34;Internet&#34;</span>, <span style="color:#e6db74">&#34;Condominio&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> SpaceObject(random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">50</span>, screen_x<span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>), random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">50</span>, screen_y), random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1</span>),
+</span></span><span style="display:flex;"><span>                random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1</span>), [<span style="color:#ae81ff">10</span>, <span style="color:#ae81ff">10</span>],
+</span></span><span style="display:flex;"><span>                random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.5</span>), (<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">255</span>), [i <span style="color:#f92672">+</span> random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> ect_x],
+</span></span><span style="display:flex;"><span>                [i <span style="color:#f92672">+</span> random<span style="color:#f92672">.</span>uniform(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>) <span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> ect_y], \
+</span></span><span style="display:flex;"><span>                       label<span style="color:#f92672">=</span>labels[random<span style="color:#f92672">.</span>randint(<span style="color:#ae81ff">0</span>, len(labels) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)])
+</span></span></code></pre></div><p>We will then create a list of asteroids and add six randomly generated asteroids to this list.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>asteroids <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">for</span> i <span style="color:#f92672">in</span> range (<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">6</span>):
+</span></span><span style="display:flex;"><span>    asteroids<span style="color:#f92672">.</span>append(generate_asteroid())
+</span></span></code></pre></div><h2 id="creating-the-player">Creating the Player</h2>
+<p>The player is represented by a spaceship that can rotate, thrust forward, and shoot bullets. We will create a <code>SpaceObject</code> for the player with the following attributes:</p>
+<ul>
+<li>Position in the center of the screen</li>
+<li>Velocity set to 0</li>
+<li>Size of [10, 10]</li>
+<li>Color of red</li>
+<li>Shape of an equilateral triangle with side length of 50 pixels</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>player <span style="color:#f92672">=</span> SpaceObject(int(screen_x<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>),int(screen_y<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>),<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,[<span style="color:#ae81ff">10</span>,<span style="color:#ae81ff">10</span>],<span style="color:#ae81ff">0</span>,(<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>),[<span style="color:#ae81ff">0</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">25</span>],[<span style="color:#f92672">-</span><span style="color:#ae81ff">30</span>, <span style="color:#ae81ff">25</span>, <span style="color:#ae81ff">25</span>])
+</span></span></code></pre></div><p>Finally, we initialize a couple variables to store important info just before the core of the program, the game loop.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>bullets <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>score <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>life <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>level <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>
+</span></span></code></pre></div><p>In the next post we shall illustrate how to put all of this togheter and actually using player input to handle events in the game.</p>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-www-raffaelespataro-it" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

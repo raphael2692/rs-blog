@@ -2,39 +2,75 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.raffaelespataro.it/tags/ai/</loc>
+    <loc>http://localhost:1313/tags/coding/</loc>
+    <lastmod>2024-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/coding/feed-code-to-ai-tutorial/</loc>
+    <lastmod>2024-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/markdown/</loc>
+    <lastmod>2024-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2024-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/python/</loc>
+    <lastmod>2024-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2024-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2024-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/tutorial/</loc>
+    <lastmod>2024-06-01T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/ai/</loc>
+    <lastmod>2023-04-18T10:10:10+02:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/langchain/</loc>
     <lastmod>2023-04-17T15:23:19+02:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/tags/coding/</loc>
+    <loc>http://localhost:1313/posts/coding/langchain-pandas-agent/</loc>
+    <lastmod>2023-04-17T15:21:12+02:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/pandas/</loc>
+    <lastmod>2023-04-17T15:21:12+02:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/coding/langchain-wikipedia/</loc>
     <lastmod>2023-04-17T15:23:19+02:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/posts/coding/langchain-wikipedia/</loc>
-    <lastmod>2023-04-17T15:23:19+02:00</lastmod>
+    <loc>http://localhost:1313/posts/coding/large-language-model-as-theories-of-language/</loc>
+    <lastmod>2023-04-18T10:10:10+02:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/tags/datascience/</loc>
-    <lastmod>2023-04-17T15:23:19+02:00</lastmod>
+    <loc>http://localhost:1313/tags/thoughts/</loc>
+    <lastmod>2023-04-18T10:10:10+02:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/tags/langchain/</loc>
-    <lastmod>2023-04-17T15:23:19+02:00</lastmod>
+    <loc>http://localhost:1313/tags/angular/</loc>
+    <lastmod>2022-02-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/tags/llm/</loc>
-    <lastmod>2023-04-17T15:23:19+02:00</lastmod>
+    <loc>http://localhost:1313/posts/coding/simple-ticket-fullstack-frontend/</loc>
+    <lastmod>2022-02-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/posts/</loc>
-    <lastmod>2023-04-17T15:23:19+02:00</lastmod>
+    <loc>http://localhost:1313/tags/web-development/</loc>
+    <lastmod>2022-02-02T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/tags/python/</loc>
-    <lastmod>2023-04-17T15:23:19+02:00</lastmod>
+    <loc>http://localhost:1313/posts/coding/simple-ticket-fullstack-backend/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/</loc>
-    <lastmod>2023-04-17T15:23:19+02:00</lastmod>
+    <loc>http://localhost:1313/tags/django/</loc>
+    <lastmod>2022-02-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/tags/</loc>
-    <lastmod>2023-04-17T15:23:19+02:00</lastmod>
+    <loc>http://localhost:1313/tags/pygame/</loc>
+    <lastmod>2022-01-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/about/</loc>
-    <priority>0</priority>
+    <loc>http://localhost:1313/posts/coding/asteroids-pygame-tutorial/</loc>
+    <lastmod>2022-01-01T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://www.raffaelespataro.it/categories/</loc>
+    <loc>http://localhost:1313/about/</loc>
+    <lastmod>2023-04-18T10:10:10+02:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/</loc>
   </url>
 </urlset>

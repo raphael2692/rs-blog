@@ -1,0 +1,688 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>Building the Frontend of SimpleTicket with Angular // Raffaele Spataro</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.145.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Raffaele Spataro" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.6572706294358157e91e58d0b754256a86f60701dfb73d05088a26c6493a83bb.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Building the Frontend of SimpleTicket with Angular">
+  <meta name="twitter:description" content="Introduction In this tutorial, we will guide you through building the frontend of the SimpleTicket web application using Angular. We will focus on the meaningful parts of the code, skipping over boilerplate and less relevant files. By the end of this tutorial, you will have a functional Angular application that interacts with a backend API to manage tickets.
+Project Structure Here’s the structure of the Angular project:
+angular/│├── src/│ ├── app/│ │ ├── app-routing.module.ts│ │ ├── app.component.html│ │ ├── app.component.spec.ts│ │ ├── app.component.ts│ │ ├── app.module.ts│ │ ├── auth/│ │ │ ├── auth.interceptor.spec.ts│ │ │ ├── auth.interceptor.ts│ │ │ ├── auth.service.spec.ts│ │ │ ├── auth.service.ts│ │ │ ├── login/│ │ │ │ ├── login.component.html│ │ │ │ ├── login.component.spec.ts│ │ │ │ ├── login.component.ts│ │ │ ├── signup/│ │ │ │ ├── signup.component.html│ │ │ │ ├── signup.component.spec.ts│ │ │ │ ├── signup.component.ts│ │ ├── components/│ │ │ ├── home/│ │ │ │ ├── home.component.html│ │ │ │ ├── home.component.spec.ts│ │ │ │ ├── home.component.ts│ │ │ ├── navbar/│ │ │ │ ├── navbar.component.html│ │ │ │ ├── navbar.component.spec.ts│ │ │ │ ├── navbar.component.ts│ │ │ ├── ticket/│ │ │ │ ├── ticket.component.html│ │ │ │ ├── ticket.component.spec.ts│ │ │ │ ├── ticket.component.ts│ │ │ ├── ticket-all/│ │ │ │ ├── ticket-all.component.html│ │ │ │ ├── ticket-all.component.spec.ts│ │ │ │ ├── ticket-all.component.ts│ │ │ ├── ticket-form/│ │ │ │ ├── ticket-form.component.html│ │ │ │ ├── ticket-form.component.spec.ts│ │ │ │ ├── ticket-form.component.ts│ │ ├── modal/│ │ │ ├── modal.component.html│ │ │ ├── modal.component.spec.ts│ │ │ ├── modal.component.ts│ │ ├── models/│ │ │ ├── ticket.ts│ │ │ ├── user.ts│ │ ├── services/│ │ │ ├── error.interceptor.spec.ts│ │ │ ├── error.interceptor.ts│ │ │ ├── ticket.service.spec.ts│ │ │ ├── ticket.service.ts│ │ │ ├── user.service.spec.ts│ │ │ ├── user.service.ts│ ├── assets/│ ├── environments/│ │ ├── environment.prod.ts│ │ ├── environment.ts│ ├── index.html│ ├── main.ts│ ├── polyfills.ts│ ├── test.ts Setting Up the Angular Application First, let’s set up the basic structure of the Angular application. We’ll initialize the necessary modules and components.">
+
+    <meta property="og:url" content="http://localhost:1313/posts/coding/simple-ticket-fullstack-frontend/">
+  <meta property="og:site_name" content="Raffaele Spataro">
+  <meta property="og:title" content="Building the Frontend of SimpleTicket with Angular">
+  <meta property="og:description" content="Introduction In this tutorial, we will guide you through building the frontend of the SimpleTicket web application using Angular. We will focus on the meaningful parts of the code, skipping over boilerplate and less relevant files. By the end of this tutorial, you will have a functional Angular application that interacts with a backend API to manage tickets.
+Project Structure Here’s the structure of the Angular project:
+angular/│├── src/│ ├── app/│ │ ├── app-routing.module.ts│ │ ├── app.component.html│ │ ├── app.component.spec.ts│ │ ├── app.component.ts│ │ ├── app.module.ts│ │ ├── auth/│ │ │ ├── auth.interceptor.spec.ts│ │ │ ├── auth.interceptor.ts│ │ │ ├── auth.service.spec.ts│ │ │ ├── auth.service.ts│ │ │ ├── login/│ │ │ │ ├── login.component.html│ │ │ │ ├── login.component.spec.ts│ │ │ │ ├── login.component.ts│ │ │ ├── signup/│ │ │ │ ├── signup.component.html│ │ │ │ ├── signup.component.spec.ts│ │ │ │ ├── signup.component.ts│ │ ├── components/│ │ │ ├── home/│ │ │ │ ├── home.component.html│ │ │ │ ├── home.component.spec.ts│ │ │ │ ├── home.component.ts│ │ │ ├── navbar/│ │ │ │ ├── navbar.component.html│ │ │ │ ├── navbar.component.spec.ts│ │ │ │ ├── navbar.component.ts│ │ │ ├── ticket/│ │ │ │ ├── ticket.component.html│ │ │ │ ├── ticket.component.spec.ts│ │ │ │ ├── ticket.component.ts│ │ │ ├── ticket-all/│ │ │ │ ├── ticket-all.component.html│ │ │ │ ├── ticket-all.component.spec.ts│ │ │ │ ├── ticket-all.component.ts│ │ │ ├── ticket-form/│ │ │ │ ├── ticket-form.component.html│ │ │ │ ├── ticket-form.component.spec.ts│ │ │ │ ├── ticket-form.component.ts│ │ ├── modal/│ │ │ ├── modal.component.html│ │ │ ├── modal.component.spec.ts│ │ │ ├── modal.component.ts│ │ ├── models/│ │ │ ├── ticket.ts│ │ │ ├── user.ts│ │ ├── services/│ │ │ ├── error.interceptor.spec.ts│ │ │ ├── error.interceptor.ts│ │ │ ├── ticket.service.spec.ts│ │ │ ├── ticket.service.ts│ │ │ ├── user.service.spec.ts│ │ │ ├── user.service.ts│ ├── assets/│ ├── environments/│ │ ├── environment.prod.ts│ │ ├── environment.ts│ ├── index.html│ ├── main.ts│ ├── polyfills.ts│ ├── test.ts Setting Up the Angular Application First, let’s set up the basic structure of the Angular application. We’ll initialize the necessary modules and components.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-02-02T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-02-02T00:00:00+00:00">
+    <meta property="article:tag" content="Coding">
+    <meta property="article:tag" content="Angular">
+    <meta property="article:tag" content="Web Development">
+    <meta property="article:tag" content="Tutorial">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avataaars.png" alt="Raffaele Spataro" /></a>
+      <span class="app-header-title">Raffaele Spataro</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/about/">About</a>
+      </nav>
+      <p>Welcome to my blog! I share insights on coding, my projects, and occasional snippets of my life. Enjoy exploring!</p>
+      <div class="app-header-social">
+        
+          <a href="https://www.linkedin.com/in/raffaele-spataro-44194b57/" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>linkedin</title><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        
+          <a href="https://github.com/raphael2692" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>github</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Building the Frontend of SimpleTicket with Angular</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Feb 2, 2022
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          10 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/coding/">Coding</a>
+              <a class="tag" href="/tags/angular/">Angular</a>
+              <a class="tag" href="/tags/web-development/">Web Development</a>
+              <a class="tag" href="/tags/tutorial/">Tutorial</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h1 id="introduction">Introduction</h1>
+<p>In this tutorial, we will guide you through building the frontend of the SimpleTicket web application using Angular. We will focus on the meaningful parts of the code, skipping over boilerplate and less relevant files. By the end of this tutorial, you will have a functional Angular application that interacts with a backend API to manage tickets.</p>
+<h2 id="project-structure">Project Structure</h2>
+<p>Here&rsquo;s the structure of the Angular project:</p>
+<pre tabindex="0"><code>angular/
+│
+├── src/
+│   ├── app/
+│   │   ├── app-routing.module.ts
+│   │   ├── app.component.html
+│   │   ├── app.component.spec.ts
+│   │   ├── app.component.ts
+│   │   ├── app.module.ts
+│   │   ├── auth/
+│   │   │   ├── auth.interceptor.spec.ts
+│   │   │   ├── auth.interceptor.ts
+│   │   │   ├── auth.service.spec.ts
+│   │   │   ├── auth.service.ts
+│   │   │   ├── login/
+│   │   │   │   ├── login.component.html
+│   │   │   │   ├── login.component.spec.ts
+│   │   │   │   ├── login.component.ts
+│   │   │   ├── signup/
+│   │   │   │   ├── signup.component.html
+│   │   │   │   ├── signup.component.spec.ts
+│   │   │   │   ├── signup.component.ts
+│   │   ├── components/
+│   │   │   ├── home/
+│   │   │   │   ├── home.component.html
+│   │   │   │   ├── home.component.spec.ts
+│   │   │   │   ├── home.component.ts
+│   │   │   ├── navbar/
+│   │   │   │   ├── navbar.component.html
+│   │   │   │   ├── navbar.component.spec.ts
+│   │   │   │   ├── navbar.component.ts
+│   │   │   ├── ticket/
+│   │   │   │   ├── ticket.component.html
+│   │   │   │   ├── ticket.component.spec.ts
+│   │   │   │   ├── ticket.component.ts
+│   │   │   ├── ticket-all/
+│   │   │   │   ├── ticket-all.component.html
+│   │   │   │   ├── ticket-all.component.spec.ts
+│   │   │   │   ├── ticket-all.component.ts
+│   │   │   ├── ticket-form/
+│   │   │   │   ├── ticket-form.component.html
+│   │   │   │   ├── ticket-form.component.spec.ts
+│   │   │   │   ├── ticket-form.component.ts
+│   │   ├── modal/
+│   │   │   ├── modal.component.html
+│   │   │   ├── modal.component.spec.ts
+│   │   │   ├── modal.component.ts
+│   │   ├── models/
+│   │   │   ├── ticket.ts
+│   │   │   ├── user.ts
+│   │   ├── services/
+│   │   │   ├── error.interceptor.spec.ts
+│   │   │   ├── error.interceptor.ts
+│   │   │   ├── ticket.service.spec.ts
+│   │   │   ├── ticket.service.ts
+│   │   │   ├── user.service.spec.ts
+│   │   │   ├── user.service.ts
+│   ├── assets/
+│   ├── environments/
+│   │   ├── environment.prod.ts
+│   │   ├── environment.ts
+│   ├── index.html
+│   ├── main.ts
+│   ├── polyfills.ts
+│   ├── test.ts
+</code></pre><h2 id="setting-up-the-angular-application">Setting Up the Angular Application</h2>
+<p>First, let&rsquo;s set up the basic structure of the Angular application. We&rsquo;ll initialize the necessary modules and components.</p>
+<h3 id="maints"><code>main.ts</code></h3>
+<p>The <code>main.ts</code> file is the entry point of the Angular application. It bootstraps the root module (<code>AppModule</code>) to start the application.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">enableProdMode</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">platformBrowserDynamic</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/platform-browser-dynamic&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AppModule</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./app/app.module&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">environment</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./environments/environment&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">environment</span>.<span style="color:#a6e22e">production</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">enableProdMode</span>();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">platformBrowserDynamic</span>().<span style="color:#a6e22e">bootstrapModule</span>(<span style="color:#a6e22e">AppModule</span>)
+</span></span><span style="display:flex;"><span>  .<span style="color:#66d9ef">catch</span>(<span style="color:#a6e22e">err</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">error</span>(<span style="color:#a6e22e">err</span>));
+</span></span></code></pre></div><h3 id="appmodulets"><code>app.module.ts</code></h3>
+<p>The <code>AppModule</code> is the root module of the application. It declares the components, imports other modules, and provides services.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">NgModule</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">BrowserModule</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/platform-browser&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AppRoutingModule</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./app-routing.module&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AppComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./app.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">HomeComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./components/home/home.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TicketAllComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./components/ticket-all/ticket-all.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TicketComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./components/ticket/ticket.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">NavbarComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./components/navbar/navbar.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">HttpClientModule</span>, <span style="color:#a6e22e">HTTP_INTERCEPTORS</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/common/http&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">NgbModule</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@ng-bootstrap/ng-bootstrap&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TicketFormComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./components/ticket-form/ticket-form.component&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">FormsModule</span>, <span style="color:#a6e22e">ReactiveFormsModule</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@angular/forms&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ModalComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./modal/modal.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">LoginComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth/login/login.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">JwtModule</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@auth0/angular-jwt&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AuthInterceptor</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth/auth.interceptor&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ErrorInterceptor</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./services/error.interceptor&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SignupComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth/signup/signup.component&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@NgModule</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">declarations</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">AppComponent</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">HomeComponent</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">TicketAllComponent</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">TicketComponent</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">NavbarComponent</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">TicketFormComponent</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ModalComponent</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">LoginComponent</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">SignupComponent</span>,
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">imports</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">BrowserModule</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">AppRoutingModule</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">HttpClientModule</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">NgbModule</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">FormsModule</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ReactiveFormsModule</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">JwtModule</span>.<span style="color:#a6e22e">forRoot</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">config</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">tokenGetter</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">getItem</span>(<span style="color:#e6db74">&#39;access_token&#39;</span>)
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">providers</span><span style="color:#f92672">:</span> [
+</span></span><span style="display:flex;"><span>    { <span style="color:#a6e22e">provide</span>: <span style="color:#66d9ef">HTTP_INTERCEPTORS</span>, <span style="color:#a6e22e">useClass</span>: <span style="color:#66d9ef">AuthInterceptor</span>, <span style="color:#a6e22e">multi</span>: <span style="color:#66d9ef">true</span> },
+</span></span><span style="display:flex;"><span>    { <span style="color:#a6e22e">provide</span>: <span style="color:#66d9ef">HTTP_INTERCEPTORS</span>, <span style="color:#a6e22e">useClass</span>: <span style="color:#66d9ef">ErrorInterceptor</span>, <span style="color:#a6e22e">multi</span>: <span style="color:#66d9ef">true</span> },
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">bootstrap</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">AppComponent</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">entryComponents</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">ModalComponent</span>]
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppModule</span> { }
+</span></span></code></pre></div><h3 id="app-routingmodulets"><code>app-routing.module.ts</code></h3>
+<p>The <code>AppRoutingModule</code> defines the routes for the application. Each route maps a URL path to a component.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">NgModule</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">RouterModule</span>, <span style="color:#a6e22e">Routes</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/router&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">HomeComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./components/home/home.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TicketAllComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./components/ticket-all/ticket-all.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TicketFormComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./components/ticket-form/ticket-form.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TicketComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./components/ticket/ticket.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">LoginComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth/login/login.component&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SignupComponent</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth/signup/signup.component&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">routes</span>: <span style="color:#66d9ef">Routes</span> <span style="color:#f92672">=</span> [
+</span></span><span style="display:flex;"><span>  { <span style="color:#a6e22e">path</span> <span style="color:#f92672">:</span>  <span style="color:#e6db74">&#39;&#39;</span>, <span style="color:#a6e22e">component</span> : <span style="color:#66d9ef">HomeComponent</span>},
+</span></span><span style="display:flex;"><span>  { <span style="color:#a6e22e">path</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ticketall&#39;</span>, <span style="color:#a6e22e">component</span> : <span style="color:#66d9ef">TicketAllComponent</span>},
+</span></span><span style="display:flex;"><span>  { <span style="color:#a6e22e">path</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ticketcreate&#39;</span>, <span style="color:#a6e22e">component</span>: <span style="color:#66d9ef">TicketFormComponent</span>},
+</span></span><span style="display:flex;"><span>  { <span style="color:#a6e22e">path</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ticketcreate/:ticket:edit&#39;</span>, <span style="color:#a6e22e">component</span>: <span style="color:#66d9ef">TicketFormComponent</span>},
+</span></span><span style="display:flex;"><span>  { <span style="color:#a6e22e">path</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ticketdetail&#39;</span>, <span style="color:#a6e22e">component</span>: <span style="color:#66d9ef">TicketComponent</span>},
+</span></span><span style="display:flex;"><span>  { <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;login&#39;</span>, <span style="color:#a6e22e">component</span>: <span style="color:#66d9ef">LoginComponent</span>},
+</span></span><span style="display:flex;"><span>  { <span style="color:#a6e22e">path</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;signup&#39;</span>, <span style="color:#a6e22e">component</span>: <span style="color:#66d9ef">SignupComponent</span>}
+</span></span><span style="display:flex;"><span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@NgModule</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">imports</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">RouterModule</span>.<span style="color:#a6e22e">forRoot</span>(<span style="color:#a6e22e">routes</span>), <span style="color:#a6e22e">RouterModule</span>.<span style="color:#a6e22e">forRoot</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">routes</span>,
+</span></span><span style="display:flex;"><span>    { <span style="color:#a6e22e">enableTracing</span>: <span style="color:#66d9ef">false</span> }
+</span></span><span style="display:flex;"><span>  )],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">exports</span><span style="color:#f92672">:</span> [<span style="color:#a6e22e">RouterModule</span>]
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AppRoutingModule</span> { }
+</span></span></code></pre></div><h2 id="authentication">Authentication</h2>
+<p>The authentication module handles user login, signup, and token management.</p>
+<h3 id="authservicets"><code>auth.service.ts</code></h3>
+<p>The <code>AuthService</code> manages authentication-related operations, such as login, logout, and token storage.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">HttpClient</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/common/http&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Injectable</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">moment</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;moment&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">User</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../models/user&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">JwtHelperService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@auth0/angular-jwt&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">BehaviorSubject</span>, <span style="color:#a6e22e">Observable</span>, <span style="color:#a6e22e">tap</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Router</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/router&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">UserService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../services/user.service&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">Token</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">access</span>: <span style="color:#66d9ef">string</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">refresh</span>: <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">interface</span> <span style="color:#a6e22e">TokenPayload</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">token_type</span>: <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">exp</span>: <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">jti</span>: <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">iat</span>: <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">user_id</span>: <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@Injectable</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">providedIn</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;root&#39;</span>
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AuthService</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">isLoggedInSubject</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">BehaviorSubject</span>&lt;<span style="color:#f92672">boolean</span>&gt;(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isTokenValid</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">http</span>: <span style="color:#66d9ef">HttpClient</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">jwt</span>: <span style="color:#66d9ef">JwtHelperService</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">router</span>: <span style="color:#66d9ef">Router</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">userService</span>: <span style="color:#66d9ef">UserService</span>) {
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">login</span>(<span style="color:#a6e22e">username</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">password</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">post</span>&lt;<span style="color:#f92672">Token</span>&gt;(<span style="color:#e6db74">&#39;http://localhost:8000/api/token/&#39;</span>, { <span style="color:#a6e22e">username</span>, <span style="color:#a6e22e">password</span> })
+</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">subscribe</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">res</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">setSession</span>(<span style="color:#a6e22e">res</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      );
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">setSession</span>(<span style="color:#a6e22e">token</span>: <span style="color:#66d9ef">Token</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">payload</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">jwt</span>.<span style="color:#a6e22e">decodeToken</span>(<span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">access</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">expiresAt</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">moment</span>().<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">payload</span>.<span style="color:#a6e22e">exp</span>, <span style="color:#e6db74">&#39;second&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">setItem</span>(<span style="color:#e6db74">&#39;access_token&#39;</span>, <span style="color:#a6e22e">token</span>.<span style="color:#a6e22e">access</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">setItem</span>(<span style="color:#e6db74">&#34;expires_at&#34;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">expiresAt</span>.<span style="color:#a6e22e">valueOf</span>()));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">userService</span>.<span style="color:#a6e22e">getUserById</span>(<span style="color:#a6e22e">payload</span>.<span style="color:#a6e22e">user_id</span>).<span style="color:#a6e22e">subscribe</span>(
+</span></span><span style="display:flex;"><span>      (<span style="color:#a6e22e">data</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">setItem</span>(<span style="color:#e6db74">&#34;logged_user&#34;</span>, <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">stringify</span>(<span style="color:#a6e22e">data</span>))
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isLoggedInSubject</span>.<span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">navigate</span>([<span style="color:#e6db74">&#39;/ticketall&#39;</span>])
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">logout() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">removeItem</span>(<span style="color:#e6db74">&#34;access_token&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">removeItem</span>(<span style="color:#e6db74">&#34;expires_at&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isLoggedInSubject</span>.<span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">false</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">isTokenValid() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">moment</span>().<span style="color:#a6e22e">isBefore</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">getExpiration</span>());
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">isLoggedOut() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isLoggedIn</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getExpiration() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">expiration</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">getItem</span>(<span style="color:#e6db74">&#34;expires_at&#34;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">expiresAt</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">expiration</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">expiration</span>) <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">moment</span>(<span style="color:#a6e22e">expiresAt</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">isLoggedIn</span>()<span style="color:#f92672">:</span> <span style="color:#a6e22e">Observable</span>&lt;<span style="color:#f92672">boolean</span>&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isLoggedInSubject</span>.<span style="color:#a6e22e">asObservable</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getLoggedInUser() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">user</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">getItem</span>(<span style="color:#e6db74">&#34;logged_user&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">parsedUser</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">user</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">JSON</span>.<span style="color:#a6e22e">parse</span>(<span style="color:#a6e22e">user</span>) <span style="color:#f92672">:</span> <span style="color:#66d9ef">new</span> Object
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">parsedUser</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">public</span> <span style="color:#a6e22e">signup</span>(<span style="color:#a6e22e">email</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">username</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">password</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">password2</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">post</span>&lt;<span style="color:#f92672">Object</span>&gt;(<span style="color:#e6db74">&#39;http://localhost:8000/register&#39;</span>, { <span style="color:#a6e22e">email</span>, <span style="color:#a6e22e">username</span>, <span style="color:#a6e22e">password</span>, <span style="color:#a6e22e">password2</span> })
+</span></span><span style="display:flex;"><span>    .<span style="color:#a6e22e">pipe</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">tap</span> ( (<span style="color:#a6e22e">res</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="authinterceptorts"><code>auth.interceptor.ts</code></h3>
+<p>The <code>AuthInterceptor</code> adds the authorization token to the headers of outgoing HTTP requests.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Injectable</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AuthService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./auth.service&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Router</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;@angular/router&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">HttpRequest</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">HttpHandler</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">HttpEvent</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">HttpInterceptor</span>
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/common/http&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Observable</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@Injectable</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">providedIn</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;root&#39;</span>
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AuthInterceptor</span> <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">HttpInterceptor</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">authService</span>: <span style="color:#66d9ef">AuthService</span>, <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">router</span>: <span style="color:#66d9ef">Router</span>) { }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">intercept</span>(<span style="color:#a6e22e">req</span>: <span style="color:#66d9ef">HttpRequest</span>&lt;<span style="color:#f92672">unknown</span>&gt;, <span style="color:#a6e22e">next</span>: <span style="color:#66d9ef">HttpHandler</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Observable</span>&lt;<span style="color:#f92672">HttpEvent</span>&lt;<span style="color:#f92672">unknown</span>&gt;&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isTokenValid</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">authService</span>.<span style="color:#a6e22e">isTokenValid</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">isTokenValid</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">clonedReq</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">req</span>.<span style="color:#a6e22e">clone</span>({
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">headers</span>: <span style="color:#66d9ef">req.headers.set</span>(<span style="color:#e6db74">&#34;Authorization&#34;</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#e6db74">&#34;Bearer &#34;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">localStorage</span>.<span style="color:#a6e22e">getItem</span>(<span style="color:#e6db74">&#34;access_token&#34;</span>))
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">next</span>.<span style="color:#a6e22e">handle</span>(<span style="color:#a6e22e">clonedReq</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">next</span>.<span style="color:#a6e22e">handle</span>(<span style="color:#a6e22e">req</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="components">Components</h2>
+<p>The components are the building blocks of the Angular application. Each component handles a specific part of the UI and its logic.</p>
+<h3 id="navbarcomponentts"><code>navbar.component.ts</code></h3>
+<p>The <code>NavbarComponent</code> displays the navigation bar with links to different parts of the application.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Component</span>, <span style="color:#a6e22e">OnInit</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Ticket</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/models/ticket&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TicketService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/services/ticket.service&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AuthService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/auth/auth.service&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Observable</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@Component</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">selector</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;app-navbar&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">templateUrl</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./navbar.component.html&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">styleUrls</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;./navbar.component.scss&#39;</span>]
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NavbarComponent</span> <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">OnInit</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">isLoggedIn</span> : <span style="color:#66d9ef">Observable</span>&lt;<span style="color:#f92672">boolean</span>&gt;;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">isCollapsed</span>: <span style="color:#66d9ef">Boolean</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">public</span> <span style="color:#a6e22e">authService</span> : <span style="color:#66d9ef">AuthService</span> ) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isLoggedIn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">authService</span>.<span style="color:#a6e22e">isLoggedIn</span>();
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ngOnInit</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> { }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="ticket-allcomponentts"><code>ticket-all.component.ts</code></h3>
+<p>The <code>TicketAllComponent</code> displays a list of all tickets. It fetches the tickets from the backend and allows the user to view, edit, or delete each ticket.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Component</span>, <span style="color:#a6e22e">OnInit</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TicketService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/services/ticket.service&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Router</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/router&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Ticket</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./../../models/ticket&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AuthService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/auth/auth.service&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">BehaviorSubject</span>, <span style="color:#a6e22e">tap</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@Component</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">selector</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;app-ticket-all&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">templateUrl</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./ticket-all.component.html&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">styleUrls</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;./ticket-all.component.scss&#39;</span>]
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TicketAllComponent</span> <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">OnInit</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">isLoaded</span>: <span style="color:#66d9ef">BehaviorSubject</span>&lt;<span style="color:#f92672">boolean</span>&gt; <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">BehaviorSubject</span>(<span style="color:#66d9ef">false</span>)
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tickets</span><span style="color:#f92672">!:</span> <span style="color:#a6e22e">Ticket</span>[]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ticket</span><span style="color:#f92672">!:</span> <span style="color:#a6e22e">Ticket</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">constructor</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">api</span>: <span style="color:#66d9ef">TicketService</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">router</span>: <span style="color:#66d9ef">Router</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">authService</span>: <span style="color:#66d9ef">AuthService</span>) {
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ngOnInit</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">authService</span>.<span style="color:#a6e22e">isTokenValid</span>()) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">navigate</span>([<span style="color:#e6db74">&#39;/login&#39;</span>])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">loadTicketData</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">onAddedTicket</span>
+</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">pipe</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">tap</span>(
+</span></span><span style="display:flex;"><span>          () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">loadTicketData</span>()
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">deleteTicket</span>(<span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">id</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;Ticket &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; not found&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">confirm</span>(<span style="color:#e6db74">&#39;Are you sure to delete ticket &#39;</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">+</span> <span style="color:#e6db74">&#39; ?&#39;</span>) <span style="color:#f92672">==</span> <span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">deleteTicket</span>(<span style="color:#a6e22e">id</span>)
+</span></span><span style="display:flex;"><span>        .<span style="color:#a6e22e">subscribe</span>(
+</span></span><span style="display:flex;"><span>            () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>              <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">navigate</span>([<span style="color:#e6db74">&#34;/ticketall&#34;</span>])
+</span></span><span style="display:flex;"><span>              <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">loadTicketData</span>()
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">loadTicketData() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">api</span>.<span style="color:#a6e22e">getTickets</span>()
+</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">pipe</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">tap</span>(
+</span></span><span style="display:flex;"><span>          (<span style="color:#a6e22e">tickets</span>: <span style="color:#66d9ef">Ticket</span>[]) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tickets</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">tickets</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tickets</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">tickets</span>.<span style="color:#a6e22e">filter</span>(
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">ticket</span> <span style="color:#f92672">=&gt;</span>
+</span></span><span style="display:flex;"><span>              (<span style="color:#a6e22e">ticket</span>.<span style="color:#a6e22e">createdBy</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">ticket</span>.<span style="color:#a6e22e">requestedBy</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">ticket</span>.<span style="color:#a6e22e">requestedFor</span> ) <span style="color:#f92672">===</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">authService</span>.<span style="color:#a6e22e">getLoggedInUser</span>().<span style="color:#a6e22e">url</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isLoaded</span>.<span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">subscribe</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isLoaded</span>.<span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">true</span>))
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="ticket-formcomponentts"><code>ticket-form.component.ts</code></h3>
+<p>The <code>TicketFormComponent</code> handles the creation and editing of tickets. It includes a form for entering ticket details and submitting the data to the backend.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Component</span>, <span style="color:#a6e22e">OnInit</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TicketService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/services/ticket.service&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">UserService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/services/user.service&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Ticket</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/models/ticket&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">User</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/models/user&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">NgForm</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/forms&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">BehaviorSubject</span>, <span style="color:#a6e22e">Observable</span>, <span style="color:#a6e22e">OperatorFunction</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">debounceTime</span>, <span style="color:#a6e22e">distinctUntilChanged</span>, <span style="color:#a6e22e">map</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs/operators&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ActivatedRoute</span>, <span style="color:#a6e22e">Router</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/router&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">AuthService</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;src/app/auth/auth.service&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@Component</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">selector</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;app-ticket-create&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">templateUrl</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;./ticket-form.component.html&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">styleUrls</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;./ticket-form.component.scss&#39;</span>]
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TicketFormComponent</span> <span style="color:#66d9ef">implements</span> <span style="color:#a6e22e">OnInit</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">users</span><span style="color:#f92672">!:</span> <span style="color:#a6e22e">User</span>[];
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ticketModel</span><span style="color:#f92672">!:</span> <span style="color:#a6e22e">Ticket</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">editMode</span>: <span style="color:#66d9ef">boolean</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">isLoaded</span>: <span style="color:#66d9ef">BehaviorSubject</span>&lt;<span style="color:#f92672">boolean</span>&gt; <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">BehaviorSubject</span>(<span style="color:#66d9ef">false</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">constructor</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">userService</span>: <span style="color:#66d9ef">UserService</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">ticketApi</span>: <span style="color:#66d9ef">TicketService</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">router</span>: <span style="color:#66d9ef">Router</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">activatedRoute</span>: <span style="color:#66d9ef">ActivatedRoute</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">private</span> <span style="color:#a6e22e">authService</span>: <span style="color:#66d9ef">AuthService</span>
+</span></span><span style="display:flex;"><span>  ) { }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ngOnInit</span>()<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">authService</span>.<span style="color:#a6e22e">isTokenValid</span>()) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">navigate</span>([<span style="color:#e6db74">&#39;/login&#39;</span>])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">userService</span>.<span style="color:#a6e22e">getUsers</span>().<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">data</span> <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">users</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">activatedRoute</span>.<span style="color:#a6e22e">queryParams</span>
+</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">subscribe</span>(
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">params</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">params</span>[<span style="color:#e6db74">&#34;edit&#34;</span>] <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;true&#39;</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">editMode</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">params</span>[<span style="color:#e6db74">&#34;id&#34;</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">loadTicketData</span>()
+</span></span><span style="display:flex;"><span>          } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">editMode</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">url</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>,
+</span></span><span style="display:flex;"><span>              <span style="color:#a6e22e">completed</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>            };
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isLoaded</span>.<span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      )
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">loadTicketData() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">userService</span>.<span style="color:#a6e22e">getUsers</span>()
+</span></span><span style="display:flex;"><span>      .<span style="color:#a6e22e">subscribe</span>((<span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">User</span>[]) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">users</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketApi</span>.<span style="color:#a6e22e">getTicket</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">id</span>).<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">data</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span>.<span style="color:#a6e22e">createdBy</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">user</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">url</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span>.<span style="color:#a6e22e">createdBy</span>)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span>.<span style="color:#a6e22e">requestedBy</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">user</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">url</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span>.<span style="color:#a6e22e">requestedBy</span>)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span>.<span style="color:#a6e22e">requestedFor</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">user</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">url</span> <span style="color:#f92672">===</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span>.<span style="color:#a6e22e">requestedFor</span>)[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">isLoaded</span>.<span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">true</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        )
+</span></span><span style="display:flex;"><span>      });
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">addTicket</span>(<span style="color:#a6e22e">form</span>: <span style="color:#66d9ef">NgForm</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;createdBy&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;createdBy&#34;</span>][<span style="color:#e6db74">&#34;url&#34;</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;requestedBy&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;requestedBy&#34;</span>][<span style="color:#e6db74">&#34;url&#34;</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;requestedFor&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;requestedFor&#34;</span>][<span style="color:#e6db74">&#34;url&#34;</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;completed&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span> <span style="color:#75715e">// set default
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketApi</span>.<span style="color:#a6e22e">addTicket</span>(<span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>).<span style="color:#a6e22e">subscribe</span>(
+</span></span><span style="display:flex;"><span>      () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketApi</span>.<span style="color:#a6e22e">onAddedTicket</span>.<span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">reset</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">navigate</span>([<span style="color:#e6db74">&#39;/ticketall&#39;</span>])
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">updateTicket</span>(<span style="color:#a6e22e">form</span>: <span style="color:#66d9ef">NgForm</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;createdBy&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;createdBy&#34;</span>][<span style="color:#e6db74">&#34;url&#34;</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;requestedBy&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;requestedBy&#34;</span>][<span style="color:#e6db74">&#34;url&#34;</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;requestedFor&#34;</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>[<span style="color:#e6db74">&#34;requestedFor&#34;</span>][<span style="color:#e6db74">&#34;url&#34;</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketApi</span>.<span style="color:#a6e22e">updateTicket</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">value</span>).<span style="color:#a6e22e">subscribe</span>(
+</span></span><span style="display:flex;"><span>      () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketApi</span>.<span style="color:#a6e22e">onAddedTicket</span>.<span style="color:#a6e22e">next</span>(<span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">ticketModel</span>)
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    )
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">form</span>.<span style="color:#a6e22e">reset</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">router</span>.<span style="color:#a6e22e">navigate</span>([<span style="color:#e6db74">&#39;/ticketall&#39;</span>])
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">searchUser</span>: <span style="color:#66d9ef">OperatorFunction</span>&lt;<span style="color:#f92672">string</span>, <span style="color:#a6e22e">readonly</span> <span style="color:#a6e22e">User</span><span style="color:#960050;background-color:#1e0010">[]</span>&gt; <span style="color:#f92672">=</span> (<span style="color:#a6e22e">text$</span>: <span style="color:#66d9ef">Observable</span>&lt;<span style="color:#f92672">string</span>&gt;) <span style="color:#f92672">=&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">text$</span>.<span style="color:#a6e22e">pipe</span>(
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">debounceTime</span>(<span style="color:#ae81ff">200</span>),
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">distinctUntilChanged</span>(),
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">term</span>) <span style="color:#f92672">=&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">term</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> [] <span style="color:#f92672">:</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">filter</span>(
+</span></span><span style="display:flex;"><span>          (<span style="color:#a6e22e">user</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">username</span>.<span style="color:#a6e22e">toLowerCase</span>().<span style="color:#a6e22e">indexOf</span>(<span style="color:#a6e22e">term</span>.<span style="color:#a6e22e">toLowerCase</span>()) <span style="color:#f92672">&gt;</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>          .<span style="color:#a6e22e">slice</span>(<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">10</span>),
+</span></span><span style="display:flex;"><span>      ),
+</span></span><span style="display:flex;"><span>    );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">userResultFormatter</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">user</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">email</span>: <span style="color:#66d9ef">string</span> }) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">email</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">userInputFormatter</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">user</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">email</span>: <span style="color:#66d9ef">string</span> }) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">email</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="services">Services</h2>
+<p>Services in Angular are used to handle business logic and data fetching. They are injectable classes that can be used across different components.</p>
+<h3 id="ticketservicets"><code>ticket.service.ts</code></h3>
+<p>The <code>TicketService</code> handles CRUD operations for tickets. It communicates with the backend API to fetch, create, update, and delete tickets.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Injectable</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/core&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">HttpClient</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;@angular/common/http&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Ticket</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../models/ticket&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Observable</span>, <span style="color:#a6e22e">Subject</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;rxjs&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">@Injectable</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">providedIn</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;root&#39;</span>
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TicketService</span> {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">baseUrl</span>: <span style="color:#66d9ef">string</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;http://localhost:8000&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">onAddedTicket</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Subject</span>&lt;<span style="color:#f92672">Ticket</span>&gt;();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">constructor</span>(<span style="color:#66d9ef">private</span> <span style="color:#a6e22e">http</span>: <span style="color:#66d9ef">HttpClient</span>) { }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getTickets() {</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">http</span>.<span style="color:#66d9ef">get</span>&lt;<span style="color:#f92672">Ticket</span><span style="color:#960050;background-color:#1e0010">[]</span>&gt;(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/tickets/`</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">getTicket</span>(<span style="color:#a6e22e">ticketId</span>: <span style="color:#66d9ef">number</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Observable</span>&lt;<span style="color:#f92672">Ticket</span>&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">http</span>.<span style="color:#66d9ef">get</span>&lt;<span style="color:#f92672">Ticket</span>&gt;(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/tickets/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">ticketId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">addTicket</span>(<span style="color:#a6e22e">ticket</span>:<span style="color:#66d9ef">Ticket</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">post</span>&lt;<span style="color:#f92672">Ticket</span>&gt;(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/tickets/`</span>, <span style="color:#a6e22e">ticket</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">deleteTicket</span>(<span style="color:#a6e22e">ticketId</span>: <span style="color:#66d9ef">number</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">http</span>.<span style="color:#66d9ef">delete</span>&lt;<span style="color:#f92672">Ticket</span>&gt;(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/tickets/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">ticketId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">updateTicket</span>(<span style="color:#a6e22e">ticketId</span>: <span style="color:#66d9ef">number</span>, <span style="color:#a6e22e">ticket</span>: <span style="color:#66d9ef">Ticket</span> ){
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">http</span>.<span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">Ticket</span>&gt;(<span style="color:#e6db74">`</span><span style="color:#e6db74">${</span><span style="color:#66d9ef">this</span>.<span style="color:#a6e22e">baseUrl</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/tickets/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">ticketId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>, <span style="color:#a6e22e">ticket</span>)
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+<p>You&rsquo;ve now created a functional Angular application for managing tickets. This application includes authentication, CRUD operations for tickets, and a user-friendly interface. You can further enhance the application by adding more features or improving the existing ones.</p>
+<h3 id="resources">Resources</h3>
+<ul>
+<li>Checkout the code for this tutorial <a href="https://github.com/raphael2692/simpleticket">on my GitHub</a></li>
+</ul>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-www-raffaelespataro-it" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
