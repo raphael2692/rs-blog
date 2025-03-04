@@ -6,7 +6,7 @@
     <description>Recent content on Raffaele Spataro</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 01 Dec 2023 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 04 Mar 2025 15:00:55 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Feed code efficiently to AI with Code Merger</title>
@@ -42,6 +42,13 @@
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/coding/simple-ticket-fullstack-backend/</guid>
       <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;p&gt;In this tutorial, we will walk you through creating a simple ticket system using Django and Django REST Framework (DRF). This system will allow users to create, view, and manage tickets. We&amp;rsquo;ll cover setting up the Django project, creating models, serializers, views, and URLs, as well as implementing user authentication using JSON Web Tokens (JWT).&lt;/p&gt;&#xA;&lt;h2 id=&#34;project-structure&#34;&gt;Project Structure&lt;/h2&gt;&#xA;&lt;p&gt;Here&amp;rsquo;s the structure of the project:&lt;/p&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;simpleticket/&#xD;&#xA;│&#xD;&#xA;├── manage.py&#xD;&#xA;├── simpleticket/&#xD;&#xA;│   ├── __init__.py&#xD;&#xA;│   ├── asgi.py&#xD;&#xA;│   ├── settings.py&#xD;&#xA;│   ├── urls.py&#xD;&#xA;│   ├── wsgi.py&#xD;&#xA;│   ├── simpleticketapp/&#xD;&#xA;│   │   ├── __init__.py&#xD;&#xA;│   │   ├── admin.py&#xD;&#xA;│   │   ├── apps.py&#xD;&#xA;│   │   ├── migrations/&#xD;&#xA;│   │   │   ├── 0001_initial.py&#xD;&#xA;│   │   │   ├── __init__.py&#xD;&#xA;│   │   ├── models.py&#xD;&#xA;│   │   ├── serializers.py&#xD;&#xA;│   │   ├── tests.py&#xD;&#xA;│   │   ├── views.py&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;step-1-setting-up-the-django-project&#34;&gt;Step 1: Setting Up the Django Project&lt;/h2&gt;&#xA;&lt;p&gt;First, let&amp;rsquo;s set up the basic structure of the Django project. We&amp;rsquo;ll initialize the project and create the main application.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>SOLID principles in python</title>
+      <link>http://localhost:1313/posts/coding/solid-principles-python/</link>
+      <pubDate>Mon, 03 Jan 2022 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/posts/coding/solid-principles-python/</guid>
+      <description>&lt;h2 id=&#34;key-points&#34;&gt;Key Points&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;The SOLID principles are five guidelines for better object-oriented design in Python, likely improving code maintainability and scalability.&lt;/li&gt;&#xA;&lt;li&gt;Each principle—Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion—has a specific role in creating robust software.&lt;/li&gt;&#xA;&lt;li&gt;Research suggests following these principles can make code easier to test and extend, though their impact can vary by project complexity.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;introduction-to-solid-principles&#34;&gt;Introduction to SOLID Principles&lt;/h2&gt;&#xA;&lt;p&gt;The SOLID principles, introduced by Robert C. Martin (Uncle Bob), are a set of five object-oriented design principles that help developers write cleaner, more maintainable, and scalable code. These principles are particularly useful in Python, where object-oriented programming (OOP) is widely used. They are not strict rules but guidelines that, when applied, can significantly enhance the quality of software, especially in collaborative environments.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Re-create Asteroids in PyGame</title>

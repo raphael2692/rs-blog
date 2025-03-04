@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="en-us">
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+    <title>SOLID principles in python // Raffaele Spataro</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.145.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Raffaele Spataro" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.6572706294358157e91e58d0b754256a86f60701dfb73d05088a26c6493a83bb.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="SOLID principles in python">
+  <meta name="twitter:description" content="Key Points The SOLID principles are five guidelines for better object-oriented design in Python, likely improving code maintainability and scalability. Each principle—Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion—has a specific role in creating robust software. Research suggests following these principles can make code easier to test and extend, though their impact can vary by project complexity. Introduction to SOLID Principles The SOLID principles, introduced by Robert C. Martin (Uncle Bob), are a set of five object-oriented design principles that help developers write cleaner, more maintainable, and scalable code. These principles are particularly useful in Python, where object-oriented programming (OOP) is widely used. They are not strict rules but guidelines that, when applied, can significantly enhance the quality of software, especially in collaborative environments.">
+
+    <meta property="og:url" content="http://localhost:1313/posts/coding/solid-principles-python/">
+  <meta property="og:site_name" content="Raffaele Spataro">
+  <meta property="og:title" content="SOLID principles in python">
+  <meta property="og:description" content="Key Points The SOLID principles are five guidelines for better object-oriented design in Python, likely improving code maintainability and scalability. Each principle—Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion—has a specific role in creating robust software. Research suggests following these principles can make code easier to test and extend, though their impact can vary by project complexity. Introduction to SOLID Principles The SOLID principles, introduced by Robert C. Martin (Uncle Bob), are a set of five object-oriented design principles that help developers write cleaner, more maintainable, and scalable code. These principles are particularly useful in Python, where object-oriented programming (OOP) is widely used. They are not strict rules but guidelines that, when applied, can significantly enhance the quality of software, especially in collaborative environments.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-01-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2022-01-03T00:00:00+00:00">
+    <meta property="article:tag" content="Coding">
+    <meta property="article:tag" content="Python">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avataaars.png" alt="Raffaele Spataro" /></a>
+      <span class="app-header-title">Raffaele Spataro</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/tags/">Tags</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/about/">About</a>
+      </nav>
+      <p>Welcome to my blog! I share insights on coding, my projects, and occasional snippets of my life. Enjoy exploring!</p>
+      <div class="app-header-social">
+        
+          <a href="https://www.linkedin.com/in/raffaele-spataro-44194b57/" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-linkedin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>linkedin</title><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        
+          <a href="https://github.com/raphael2692" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>github</title><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">SOLID principles in python</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Jan 3, 2022
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          6 min read
+        </div>
+        <div>
+          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+              <a class="tag" href="/tags/coding/">Coding</a>
+              <a class="tag" href="/tags/python/">Python</a>
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="key-points">Key Points</h2>
+<ul>
+<li>The SOLID principles are five guidelines for better object-oriented design in Python, likely improving code maintainability and scalability.</li>
+<li>Each principle—Single Responsibility, Open-Closed, Liskov Substitution, Interface Segregation, and Dependency Inversion—has a specific role in creating robust software.</li>
+<li>Research suggests following these principles can make code easier to test and extend, though their impact can vary by project complexity.</li>
+</ul>
+<h2 id="introduction-to-solid-principles">Introduction to SOLID Principles</h2>
+<p>The SOLID principles, introduced by Robert C. Martin (Uncle Bob), are a set of five object-oriented design principles that help developers write cleaner, more maintainable, and scalable code. These principles are particularly useful in Python, where object-oriented programming (OOP) is widely used. They are not strict rules but guidelines that, when applied, can significantly enhance the quality of software, especially in collaborative environments.</p>
+<h2 id="why-solid-principles-matter">Why SOLID Principles Matter</h2>
+<p>SOLID principles matter because they address common challenges in software development, such as code rigidity, fragility, and immobility. By following these principles, developers can create systems that are easier to maintain, test, and extend. For instance, they help reduce tight coupling between classes, making the code more modular and reusable. This is especially important in large projects where changes in one part of the system shouldn&rsquo;t break other parts.</p>
+<p>An unexpected detail is that while these principles are rooted in OOP, their application can sometimes feel less &ldquo;Pythonic&rdquo; to developers used to Python&rsquo;s dynamic and flexible nature, leading to debates about their relevance in Python programming.</p>
+<h2 id="each-principle-with-python-examples">Each Principle with Python Examples</h2>
+<p>Below, we explore each SOLID principle, why it matters, and provide a Python example to illustrate its application. Each example is designed to be memorable and easy to remember, with a simple analogy to help you recall the concept.</p>
+<h3 id="single-responsibility-principle-srp">Single-Responsibility Principle (SRP)</h3>
+<p><strong>Definition:</strong> A class should have only one reason to change, meaning it should do one job. Think of it as <strong>&ldquo;one class, one job.&rdquo;</strong></p>
+<p><strong>Why it matters:</strong> If a class does too much, changes to one part can break another, making maintenance harder. It also makes testing easier when each class has a single focus.</p>
+<p><strong>Python Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Violation of SRP</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserManager</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>users <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_user</span>(self, name, email):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>users<span style="color:#f92672">.</span>append({<span style="color:#e6db74">&#34;name&#34;</span>: name, <span style="color:#e6db74">&#34;email&#34;</span>: email})
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_notification</span>(self, user, message):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Logic to send email to user&#39;s email address</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Following SRP</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserRepository</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>users <span style="color:#f92672">=</span> []
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">add_user</span>(self, name, email):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>users<span style="color:#f92672">.</span>append({<span style="color:#e6db74">&#34;name&#34;</span>: name, <span style="color:#e6db74">&#34;email&#34;</span>: email})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">NotificationService</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">send_notification</span>(self, email, message):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Logic to send email</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span></code></pre></div><p>Here, <code>UserManager</code> originally handled both managing users and sending notifications, violating SRP. By splitting into <code>UserRepository</code> and <code>NotificationService</code>, each class has one job, making it easier to maintain. <strong>Remember it as &ldquo;one class, one job.&rdquo;</strong></p>
+<h3 id="open-closed-principle-ocp">Open-Closed Principle (OCP)</h3>
+<p><strong>Definition:</strong> Software should be open for extension but closed for modification. Think <strong>&ldquo;extend, don&rsquo;t modify.&rdquo;</strong></p>
+<p><strong>Why it matters:</strong> This allows adding new features without changing existing code, reducing the risk of introducing bugs in working systems.</p>
+<p><strong>Python Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Violation of OCP</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AreaCalculator</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_area</span>(self, shape):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> shape <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;rectangle&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># calculate rectangle area</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">elif</span> shape <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;circle&#34;</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># calculate circle area</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">ValueError</span>(<span style="color:#e6db74">&#34;Unknown shape&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Following OCP</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> abc <span style="color:#f92672">import</span> ABC, abstractmethod
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span>(ABC):
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@property</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@abstractmethod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rectangle</span>(Shape):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, length, width):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>length <span style="color:#f92672">=</span> length
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>width <span style="color:#f92672">=</span> width
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@property</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>length <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>width
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Circle</span>(Shape):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, radius):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>radius <span style="color:#f92672">=</span> radius
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@property</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">3.14</span> <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>radius <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">AreaCalculator</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">calculate_area</span>(self, shape):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> shape<span style="color:#f92672">.</span>area
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># To add a new shape, just create a new subclass of Shape</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span>(Shape):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, side):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>side <span style="color:#f92672">=</span> side
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@property</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>side <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><p>In the first example, adding a new shape requires changing <code>AreaCalculator</code>, violating OCP. Using abstract base classes, we can extend by adding new shapes like <code>Square</code> without modifying existing code. <strong>Remember it as &ldquo;extend, don&rsquo;t modify.&rdquo;</strong></p>
+<h3 id="liskov-substitution-principle-lsp">Liskov Substitution Principle (LSP)</h3>
+<p><strong>Definition:</strong> Subtypes should be substitutable for their base types. Think <strong>&ldquo;if it quacks like a duck, it should be a duck.&rdquo;</strong></p>
+<p><strong>Why it matters:</strong> Ensures subclasses don&rsquo;t break the expected behavior of the base class, maintaining system consistency.</p>
+<p><strong>Python Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Violation of LSP</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rectangle</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, width, height):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>width <span style="color:#f92672">=</span> width
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>height <span style="color:#f92672">=</span> height
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_width</span>(self, width):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>width <span style="color:#f92672">=</span> width
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_height</span>(self, height):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>height <span style="color:#f92672">=</span> height
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span>(Rectangle):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, side):
+</span></span><span style="display:flex;"><span>        super()<span style="color:#f92672">.</span>__init__(side, side)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_width</span>(self, width):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>width <span style="color:#f92672">=</span> width
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>height <span style="color:#f92672">=</span> width
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">set_height</span>(self, height):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>height <span style="color:#f92672">=</span> height
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>width <span style="color:#f92672">=</span> height
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Following LSP</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Shape</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Rectangle</span>(Shape):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, width, height):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>width <span style="color:#f92672">=</span> width
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>height <span style="color:#f92672">=</span> height
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>width <span style="color:#f92672">*</span> self<span style="color:#f92672">.</span>height
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Square</span>(Shape):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, side):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>side <span style="color:#f92672">=</span> side
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">area</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> self<span style="color:#f92672">.</span>side <span style="color:#f92672">**</span> <span style="color:#ae81ff">2</span>
+</span></span></code></pre></div><p>Here, <code>Square</code> as a <code>Rectangle</code> subclass can cause issues when setting dimensions, violating LSP. By making both subclasses of <code>Shape</code>, we ensure substitutability. <strong>Remember it as &ldquo;if it quacks like a duck, it should be a duck.&rdquo;</strong></p>
+<h3 id="interface-segregation-principle-isp">Interface Segregation Principle (ISP)</h3>
+<p><strong>Definition:</strong> Clients should not depend on interfaces they don&rsquo;t use. Think <strong>&ldquo;only pay for what you use.&rdquo;</strong></p>
+<p><strong>Why it matters:</strong> Prevents classes from implementing unnecessary methods, reducing complexity and potential errors.</p>
+<p><strong>Python Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Violation of ISP</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Device</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_on</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_off</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">play_music</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Light</span>(Device):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_on</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Light is on&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_off</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Light is off&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">play_music</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">NotImplementedError</span>(<span style="color:#e6db74">&#34;Light cannot play music&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Following ISP</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PowerSwitch</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_on</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_off</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">MusicPlayer</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">play_music</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Light</span>(PowerSwitch):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_on</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Light is on&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_off</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Light is off&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Speaker</span>(PowerSwitch, MusicPlayer):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_on</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Speaker is on&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">turn_off</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Speaker is off&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">play_music</span>(self):
+</span></span><span style="display:flex;"><span>        print(<span style="color:#e6db74">&#34;Playing music&#34;</span>)
+</span></span></code></pre></div><p>In the first example, <code>Light</code> must implement <code>play_music</code>, which it doesn&rsquo;t need, violating ISP. By splitting into <code>PowerSwitch</code> and <code>MusicPlayer</code>, <code>Light</code> only implements what it needs. <strong>Remember it as &ldquo;only pay for what you use.&rdquo;</strong></p>
+<h3 id="dependency-inversion-principle-dip">Dependency Inversion Principle (DIP)</h3>
+<p><strong>Definition:</strong> High-level modules should depend on abstractions, not details. Think <strong>&ldquo;depend on interfaces, not implementations.&rdquo;</strong></p>
+<p><strong>Why it matters:</strong> Decouples high-level logic from low-level details, making the system more flexible and easier to change.</p>
+<p><strong>Python Example:</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Violation of DIP</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Database</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_data</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [<span style="color:#e6db74">&#34;data1&#34;</span>, <span style="color:#e6db74">&#34;data2&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReportGenerator</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, database):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>database <span style="color:#f92672">=</span> database
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_report</span>(self):
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>database<span style="color:#f92672">.</span>get_data()
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Generate report from data</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Following DIP</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> abc <span style="color:#f92672">import</span> ABC, abstractmethod
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DataSource</span>(ABC):
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">@abstractmethod</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_data</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Database</span>(DataSource):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_data</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [<span style="color:#e6db74">&#34;data1&#34;</span>, <span style="color:#e6db74">&#34;data2&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">ReportGenerator</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> __init__(self, data_source):
+</span></span><span style="display:flex;"><span>        self<span style="color:#f92672">.</span>data_source <span style="color:#f92672">=</span> data_source
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">generate_report</span>(self):
+</span></span><span style="display:flex;"><span>        data <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>data_source<span style="color:#f92672">.</span>get_data()
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Generate report from data</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">pass</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Using a different data source</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">API</span>(DataSource):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_data</span>(self):
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Fetch data from API</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> [<span style="color:#e6db74">&#34;api_data1&#34;</span>, <span style="color:#e6db74">&#34;api_data2&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>report_generator <span style="color:#f92672">=</span> ReportGenerator(API())
+</span></span><span style="display:flex;"><span>report_generator<span style="color:#f92672">.</span>generate_report()
+</span></span></code></pre></div><p>In the first example, <code>ReportGenerator</code> is tied to <code>Database</code>, violating DIP. By using <code>DataSource</code> abstraction, it can work with <code>Database</code> or <code>API</code>, enhancing flexibility. <strong>Remember it as &ldquo;depend on interfaces, not implementations.&rdquo;</strong></p>
+<h2 id="conclusion-and-implications">Conclusion and Implications</h2>
+<p>The SOLID principles provide a framework for writing maintainable and flexible code in Python. Their application, while sometimes debated for being less &ldquo;Pythonic&rdquo; due to Python&rsquo;s dynamic nature, is supported by evidence from various sources, suggesting improved code quality in collaborative and large-scale projects. The examples provided are designed to be memorable, using analogies like &ldquo;one class, one job&rdquo; for SRP, ensuring developers can easily recall and apply these principles.</p>
+
+    </div>
+    <div class="post-footer">
+      <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "https-www-raffaelespataro-it" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -6,7 +6,7 @@
     <description>Recent content in Ai on Raffaele Spataro</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 18 Apr 2023 10:10:10 +0200</lastBuildDate>
+    <lastBuildDate>Tue, 04 Mar 2025 15:00:55 +0100</lastBuildDate>
     <atom:link href="http://localhost:1313/tags/ai/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Natural query against tabular data with LangChain and Pandas</title>
@@ -21,13 +21,6 @@
       <pubDate>Sat, 01 Apr 2023 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/posts/coding/langchain-wikipedia/</guid>
       <description>&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;&#xA;&lt;p&gt;In this tutorial, we will be building a Python program that searches for a specified topic on Wikipedia, extracts the text from the top search result, and generates a summary using OpenAI and Trafilatura. We will use the LangChain library to connect these different functionalities.&lt;/p&gt;&#xA;&lt;h2 id=&#34;required-libraries&#34;&gt;Required Libraries&lt;/h2&gt;&#xA;&lt;p&gt;We will be using the following external libraries:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;code&gt;loguru&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;trafilatura&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;openai&lt;/code&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;code&gt;langchain&lt;/code&gt;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Before we dive deeper, ensure that all these libraries are installed in your system.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Large language models as theories of language</title>
-      <link>http://localhost:1313/posts/coding/large-language-model-as-theories-of-language/</link>
-      <pubDate>Sat, 01 Oct 2022 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/posts/coding/large-language-model-as-theories-of-language/</guid>
-      <description>&lt;p&gt;In this post, as part of a (potential) series, I will be sharing my thoughts on the latest technology and scientific advancements in a non-technical manner.&lt;/p&gt;&#xA;&lt;p&gt;Large language models, such as ChatGPT, are not just mere software implementations. They are a representation of a language theory, which can be considered a scientific advancement. Like other theories that may not be &amp;ldquo;true under all circumstances,&amp;rdquo; language models have the potential to advance both science and technology.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
